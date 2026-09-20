@@ -365,24 +365,25 @@ cd worker && npm test
 ## Notes
 
 - `favicon.ico`, `images/apple-touch-icon.png` and the two `icon-*.png`
-  manifest icons are all generated from `images/src/bull_mark.png`, **cropped
-  to the bull's head** and padded back to a square. The full artwork is a bull
-  in a field of floating cubes, which at 16px is a smudge; the head with its
-  white horns still reads. The apple-touch one is flattened onto white, because iOS
-  renders a transparent home-screen icon as black. Bump the `?v=` on the icon
-  links when the mark changes, so browsers drop the cached one.
+  manifest icons are all generated from the supplied square mark, **cropped to
+  the dog's head** and padded back to a square: a full scene shrinks to noise
+  at 16px. The apple-touch one is flattened onto white, because iOS renders a
+  transparent home-screen icon as black. Bump the `?v=` on the icon links when
+  the mark changes, so browsers drop the cached one — `node scripts/stamp.mjs`
+  does it.
 - `favicon.ico` sits at the repo root because browsers request `/favicon.ico` on
   their own, whatever the `<link>` tags say.
-- The hero clip is the mp4 in `images/`, audio-stripped — the
-  track is dead weight on a muted, looping video, and dropping it with a CRF
-  re-encode took the file from 3.3 MB to 0.9 MB. Its ratio is encoded twice:
-  the `width`/`height` on the `<video>` and the hero's `aspect-ratio` in the
-  stylesheet. Change both if your banner has a different shape, or
-  `object-fit: cover` will crop it silently.
+- **The hero is a still photograph, not a video.** The sibling opened on a
+  looping mp4 and carried a `poster.yml` workflow to cut its first frame; the
+  mockup here is a photo, so that workflow was removed rather than left to fail
+  on a clip that will never exist. If a clip is ever introduced, the rule it
+  implemented still stands and is written down in
+  [`images/src/README.md`](images/src/README.md): the poster must be the clip's
+  own first frame, or the hand-off from poster to playback jumps.
 - `images/src/` keeps the delivered originals and the commands that derive
-  every served file from them, so the poster can be re-cut without going back
-  to whoever made the clip.
-- The three action buttons stay on one line down to 320px, shedding padding and
-  type size as they go; below 620px the cards drop to one per row and the hero
-  runs edge to edge, overscanning the banner's own margins by 3% a side so it
-  reads as large as the screen allows.
+  every served file from them, so a crop can be redone without going back to
+  whoever made the artwork.
+- The hero actions stay on one line down to 320px, shedding padding and type
+  size as they go; below 1080px the six stat tiles drop to three across, and
+  below 620px to two. The top bar sheds its labels before it sheds its
+  buttons, and the CTA block is the last thing to go.

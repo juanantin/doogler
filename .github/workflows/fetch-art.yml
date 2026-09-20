@@ -30,6 +30,21 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p images/src
+          # Skip cleanly while config.js has no address. Without this the node
+          # snippet below calls .toLowerCase() on null and the job dies with a
+          # TypeError — a red tick that names a JavaScript fault rather than
+          # the missing input that actually caused it.
+          if ! node -e "
+            const fs=require('fs'); const w={};
+            new Function('window', fs.readFileSync('config.js','utf8'))(w);
+            process.exit(/^0x[0-9a-fA-F]{40}$/.test(w.SITE_CONFIG.contractAddress || '') ? 0 : 1);
+          "; then
+            echo "config.js contractAddress is not set — nothing to fetch artwork for."
+            echo "This workflow pulls the image and banner the token launched with from"
+            echo "thestonks.exchange, which is keyed by the contract address. Set it and"
+            echo "push to this file to run."
+            exit 0
+          fi
           TOKEN=$(node -e "
             const fs=require('fs'); const w={};
             new Function('window', fs.readFileSync('config.js','utf8'))(w);

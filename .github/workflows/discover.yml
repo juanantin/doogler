@@ -8,10 +8,10 @@ name: Discover token facts
 # Push to either path below to run it — the token this session holds gets 403
 # from workflow_dispatch, so a push to a watched path is the trigger.
 #
-# ⚠ The repository's FIRST push does not trigger this. Creating the default
-# branch produced a run for index-rewards.yml and none for this file, so a
-# path-filtered workflow cannot be relied on to fire on the initial commit.
-# Any later push touching a watched path works normally.
+# The repository's first push DOES trigger this: creating the default branch
+# ran it along with every other path-filtered workflow here, and it stopped on
+# the missing-address guard in scripts/discover-token.mjs, which is the
+# intended outcome while config.js is still null.
 
 on:
   push:

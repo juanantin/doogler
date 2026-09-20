@@ -92,34 +92,46 @@ setting on the platform's panel, and artwork.
 
 - `images/src/` holds the originals; everything the page serves is derived
   from them, and [`images/src/README.md`](images/src/README.md) carries the
-  commands. Keep that arrangement — it is what makes "re-cut the poster" a
-  one-liner rather than a request back to the designer.
+  commands. Keep that arrangement — it is what makes re-cutting a crop a
+  one-liner rather than a request back to the designer. **Nothing has been
+  supplied yet**, so every image on the page is a dashed placeholder naming
+  what belongs in it.
 - `images/favicon.png` and the icons — generated from the mark, **cropped to
   its most recognisable part and padded back to a square**. A full scene
   shrinks to noise at 16px. The apple-touch icon is flattened onto white,
   because iOS renders a transparent home-screen icon as black. Then run
   `node scripts/stamp.mjs`, which moves every `?v=` so browsers drop the
   cached mark.
-- The banner clip and its poster — **the poster must be the clip's own first
-  frame**, or the hand-off from poster to playback jumps. Strip the audio
-  track; the video is muted and looping, so it is dead weight. If your clip is
-  not the current 960×304, update the `width`/`height` on the `<video>` in
-  `index.html` **and** the hero's `aspect-ratio` in `assets/css/styles.css`:
-  the ratio is encoded twice, and `object-fit: cover` crops silently when they
+- **The hero is a still photograph here, not a clip.** The sibling's
+  `poster.yml` workflow, which cut a poster from the hero mp4, was removed with
+  the video. If a clip is ever introduced, its first frame must be the poster
+  or the hand-off jumps, and the ratio has to be written in both the `<video>`
+  and the hero's `aspect-ratio` — `object-fit: cover` crops silently when they
   disagree.
-- `assets/css/styles.css` — `--page` is **sampled from the banner's own
-  ground**, which is what lets the clip sit flush at the top with no seam.
-  Resample it whenever the clip changes. `--accent` and `--accent-soft` are
-  the accent and the icon discs.
-- `index.html` — `<title>`, the description and OG/Twitter meta, the card
-  labels naming the reward token, the three fixed rows in
-  `<section class="facts">`, and **the non-affiliation notice in the footer**,
-  which has to name whatever this token's artwork might be mistaken for.
-  There is no wordmark to change: the banner carries it, and the `<h1>` behind
-  it is screen-reader only.
+- `assets/css/styles.css` — the palette is Google's four, as **accents only**:
+  `--g-blue`, `--g-red`, `--g-yellow`, `--g-green`, used on the wordmark's
+  letters and the six stat icons and nowhere else. `--g-yellow` is deliberately
+  darker than Google's `#fbbc05`, which sits around 1.7:1 on white and is
+  illegible as text; `--g-yellow-pure` is the real one, kept for icon strokes
+  and the dark banner where it has a ground. The dark banner's Earth photo is
+  set on `.banner`, where the gradient that keeps the type legible over it is
+  already written out.
+- `index.html` — `<title>`, the description and the OG/Twitter meta (**the
+  social block is commented out until the deployment URL exists**, because a
+  relative `og:image` renders blank), the tile labels naming the reward token,
+  the three fixed rows in `<dl class="facts">`, and **the non-affiliation
+  notice in the footer**, which names Google LLC and Alphabet Inc.
+- **The wordmark is live text**, not an image: each letter of "$DOOGLER" is its
+  own `<span>` and the colours come from the stylesheet, so it stays crisp at
+  any zoom and costs no request. A screen reader is handed the whole word by
+  the parent's `aria-label`. It appears three times — the top bar, the hero
+  headline and the dark banner — so change all three together, or supply a
+  drawn wordmark and replace them.
 - `site.webmanifest` — `name`, `short_name` and the two colours.
-- The two ecosystem lockups at the bottom of `index.html` — swap them if the
-  token launched somewhere else, or delete the whole `<section class="eco">`.
+- The partner lockups appear **twice**, in the hero and the footer. Both pairs'
+  hrefs are written from `config.js` by `app.js` (`link-launched`,
+  `link-rewards`, and the `-foot` duplicates mirrored by the inline script), so
+  swap the names in the markup but never hard-code a URL there.
 
 ## 3. Live figures
 
