@@ -38,6 +38,25 @@ const TOKEN = CFG.contractAddress;
 const INDEX = (CFG.contracts || {}).rewardsIndex;
 const POOL = (CFG.contracts || {}).pool;
 
+/* Every question below is asked ABOUT these addresses. With config.js still
+   all nulls there is nothing to ask, and the run would put the empty string to
+   Base and report the node's refusals as findings. Say which inputs are
+   missing and stop cleanly — a red tick here would mean "the config is not
+   filled in yet", which is already known and is not a fault in the page. */
+if (!/^0x[0-9a-fA-F]{40}$/.test(String(TOKEN || ''))) {
+  console.log('=== chain probe =========================================');
+  console.log('');
+  console.log('  config.js contractAddress is not set — nothing to probe on chain.');
+  console.log('');
+  console.log(`    contractAddress      ${TOKEN === null ? 'null' : JSON.stringify(TOKEN)}`);
+  console.log(`    contracts.pool       ${POOL === null ? 'null' : JSON.stringify(POOL)}`);
+  console.log(`    contracts.rewardsIndex ${INDEX === null ? 'null' : JSON.stringify(INDEX)}`);
+  console.log('');
+  console.log('  Run .github/workflows/discover.yml and fill them in first.');
+  console.log('=========================================================');
+  process.exit(0);
+}
+
 const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 const asTopic = (a) => '0x' + '0'.repeat(24) + String(a).toLowerCase().replace(/^0x/, '');
 
