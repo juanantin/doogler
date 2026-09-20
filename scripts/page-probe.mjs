@@ -80,7 +80,18 @@ if (MOBILE) console.log('mobile: 390x844, cold cache');
    which is why it passed here while it was still broken on real screens. */
 if (process.env.SEED_ZEROS) {
   const cfgSrc = await readFile(path.join(ROOT, 'config.js'), 'utf8');
-  const token = /contractAddress:\s*'([^']+)'/.exec(cfgSrc)[1].toLowerCase();
+  /* The remembered-values key is per token address, so there is nothing to
+     poison until config.js names one. With contractAddress null this regex
+     does not match and indexing [1] threw a TypeError, failing the pass with
+     a JavaScript fault instead of the missing input behind it — and taking
+     the mobile and chain passes down with it, since they run after this one. */
+  const match = /contractAddress:\s*'([^']+)'/.exec(cfgSrc);
+  if (!match) {
+    console.log('config.js has no contractAddress — nothing to seed, so there is');
+    console.log('no returning-visitor state to reproduce. Skipping this pass.');
+    process.exit(0);
+  }
+  const token = match[1].toLowerCase();
   const version = /'purr:stats:(v\d+):'/.exec(await readFile(path.join(ROOT, 'assets/js/app.js'), 'utf8'))[1];
   const key = `purr:stats:${version}:${token}`;
   await page.addInitScript(([k, poison]) => {
