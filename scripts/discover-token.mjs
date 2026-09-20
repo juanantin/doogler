@@ -56,6 +56,13 @@ if (!/^0x[0-9a-fA-F]{40}$/.test(TOKEN)) {
   console.error('  Set contractAddress in config.js to the Base address for $DOOGLER and');
   console.error('  push, or re-run this workflow with the TOKEN input filled in.');
   console.error('');
+  /* Non-zero DELIBERATELY, unlike the other guards. The probe, fetch-art and
+     index-rewards guards all exit 0, because "nothing to do yet" is a true
+     and unremarkable state for them. This workflow is different: answering
+     the token's facts is the ONE thing blocking the build, and a green tick
+     here would read as "discovery ran fine" when it discovered nothing. The
+     red mark is the flag that the repo is waiting on its owner. It clears the
+     moment an address lands. */
   process.exit(1);
 }
 

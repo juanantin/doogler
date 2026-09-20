@@ -19,6 +19,14 @@ them is blocking:
 | **Stockify index URL** | the rewards lockup, and the `holderShare` check |
 | **Artwork** — dog photos, wordmark, square mark | every image slot, the icons and the share card. See [`images/src/README.md`](images/src/README.md) |
 
+**The `Discover token facts` workflow is red on purpose** while that first row
+is outstanding, and it is the only red one. Answering the token's facts is the
+single thing blocking this build, so it fails rather than reporting a green
+tick for a run that discovered nothing. Every other workflow guards itself and
+exits clean: the probe passes all nine steps, `Index rewards` refuses to scan
+and says why, `Fetch the token's artwork` skips. The red clears the moment an
+address lands.
+
 Copied from [`juanantin/purr`](https://github.com/juanantin/purr), which was
 copied from [`blue`](https://github.com/juanantin/blue), which was copied from
 [`box`](https://github.com/juanantin/box). **The data machinery is unchanged** —
