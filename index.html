@@ -57,10 +57,10 @@
 
      The ?v= below is what makes a browser let go of the icon it has cached;
      node scripts/stamp.mjs moves all of them together. -->
-<link rel="icon" href="favicon.ico?v=4" sizes="any">
-<link rel="icon" type="image/png" href="images/favicon.png?v=4">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=4">
-<link rel="manifest" href="site.webmanifest?v=4">
+<link rel="icon" href="favicon.ico?v=5" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon.png?v=5">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=5">
+<link rel="manifest" href="site.webmanifest?v=5">
 
 <!-- One face — Inter — across five weights. 800 is not decoration: the
      wordmark and the section headings are set in it, and Inter's 700 is
@@ -70,7 +70,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=4">
+<link rel="stylesheet" href="assets/css/styles.css?v=5">
 </head>
 
 <!-- No `anim` class here on purpose: the entrance animation hides everything
@@ -87,10 +87,9 @@
     <a class="brand" href="#top" aria-label="Jeffree $DOOGLER — home">
       <!-- Cropped from the hero to the dog's head — see images/src/README.md.
            The whole photo at 40px is a smudge; the head still reads. -->
-      <img class="brand__avatar" src="images/avatar.png?v=4" width="256" height="256"
+      <img class="brand__avatar" src="images/avatar.png?v=5" width="256" height="256"
            alt="" decoding="async">
       <span class="brand__name">
-        <span class="brand__first">Jeffree</span>
         <!-- The wordmark: DOOGLER in Google's four accent colours, cycling in
              the order Google's own logotype uses (blue, red, yellow, blue,
              green, red) and carrying on into the seventh letter. Each letter
@@ -98,9 +97,7 @@
              image — it stays crisp at any zoom and costs no request. The
              aria-label on the parent is what a screen reader announces, so
              the split letters are hidden from it. -->
-        <span class="wordmark" aria-label="$DOOGLER">
-          <span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span>
-        </span>
+        <span class="wordmark" aria-label="Jeffree $DOOGLER">Jeffree&nbsp;<span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span>
       </span>
     </a>
 
@@ -142,164 +139,191 @@
 <main id="top">
 
   <!-- ===================== HERO ===================== -->
-  <!-- The copy sits at wrap width; the photograph runs FULL BLEED beneath it.
-       The delivered frame is 2.5:1, and that shape is what a full-width band
-       wants — the same ratio that read as a letterbox strip when it was tried
-       as a column beside the headline. -->
-  <section class="hero wrap">
+  <!-- Per the mockup: the photograph fills the band and the copy sits ON it,
+       left. A white scrim runs left-to-right across the photo so black type
+       stays readable over whatever the picture is doing underneath — the
+       delivered frame has trees and bicycles on that side, and type straight
+       onto it would be unreadable at any weight. The scrim is a gradient
+       rather than a flat panel so the photograph still reads as one image.
 
-    <h1 class="hero__title" data-rise>
-      <span class="hero__line">Buy <span class="wordmark wordmark--xl" aria-label="$DOOGLER"><span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span></span>
-      <span class="hero__line">Get <span class="wordmark wordmark--xl" aria-label="$GOOGL"><span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">G</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span></span>.</span>
-    </h1>
+       The photo is set as a background here rather than as an <img>: it is
+       decoration behind text, so it carries no alt text and the hero's own
+       heading is what a screen reader gets. -->
+  <section class="hero">
+    <div class="hero__in wrap">
 
-    <!-- Three lines, per the mockup. The third is the precise one: what
-         holders actually receive is a tokenized wrapper the platform issues,
-         NOT Alphabet stock and NOT a shareholding. Its ticker is GOOGLc, read
-         from the contract's own symbol() — on the sibling token that reading
-         was "AMZNc", not "AMZN". See the disclosure under the stats strip. -->
-    <p class="hero__sub" data-rise>
-      Every trade on $DOOGLER collects a fee.
-      Those fees are converted into <b>GOOGLc</b> — the tokenized $GOOGL wrapper — and
-      airdropped straight to holders.
-      Hold the dog, earn the index — no staking, no claiming, no lockup.
-    </p>
+      <h1 class="hero__title" data-rise>
+        <span class="hero__line">Buy <span class="wordmark wordmark--xl" aria-label="$DOOGLER"><span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span></span>
+        <span class="hero__line">Get <span class="wordmark wordmark--xl" aria-label="$GOOGL"><span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">G</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span></span>.</span>
+      </h1>
 
-    <nav class="hero__actions" aria-label="Token links" data-rise>
-      <a class="btn btn--solid" href="#" data-mirror-x target="_blank" rel="noopener noreferrer">
-        <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M17.53 3h3.1l-6.77 7.73L21.83 21h-6.24l-4.89-6.39L5.11 21H2l7.24-8.27L2.17 3h6.4l4.42 5.84L17.53 3Zm-1.09 16.13h1.72L7.63 4.78H5.79l10.65 14.35Z"/>
-        </svg>
-        Follow on X
-      </a>
+      <!-- The mockup's four lines. "converted into $GOOGL stock" is the one
+           phrase changed, and it is not a stylistic change: the reward token
+           is not stock. Its contract answers GOOGLc and it is a tokenized
+           wrapper that tracks the share price — see the disclosure under the
+           stats. Everything else here is the mockup's wording. -->
+      <p class="hero__sub" data-rise>
+        The memecoin with real utility.<br>
+        Every trade generates fees, converted<br>
+        into <b>GOOGLc</b> — the tokenized $GOOGL wrapper —<br>
+        and airdropped to $DOOGLER holders.
+      </p>
 
-      <a class="btn btn--outline" href="#" data-mirror-chart target="_blank" rel="noopener noreferrer">
-        <svg class="btn__icon btn__icon--stroke" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M4.4 19.6h15.2"/><path d="M6.6 19.6v-5"/><path d="M12 19.6V9.8"/><path d="M17.4 19.6V5.4"/>
-        </svg>
-        View Chart
-      </a>
-
-      <div class="ca-wrap">
-        <button class="ca-chip" id="copy-ca" type="button">
-          <span class="ca-chip__label">CA (Base)</span>
-          <!-- app.js writes the truncated address here from
-               config.contractAddress. -->
-          <span class="ca-chip__addr" id="ca-short">—</span>
-          <svg class="ca-chip__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M9.4 9.4h9.2v9.2H9.4z"/><path d="M14.6 9.4V5.4H5.4v9.2h4"/>
+      <nav class="hero__actions" aria-label="Token links" data-rise>
+        <a class="btn btn--solid" href="#" data-mirror-x target="_blank" rel="noopener noreferrer">
+          <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M17.53 3h3.1l-6.77 7.73L21.83 21h-6.24l-4.89-6.39L5.11 21H2l7.24-8.27L2.17 3h6.4l4.42 5.84L17.53 3Zm-1.09 16.13h1.72L7.63 4.78H5.79l10.65 14.35Z"/>
           </svg>
-          <span class="sr-only">Copy the contract address</span>
-        </button>
+          <span><u>Follow</u> on X</span>
+        </a>
 
-        <div class="toast" id="copy-toast" role="status" aria-live="polite">
-          <svg class="toast__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path d="m7.8 12.3 2.9 2.9 5.5-5.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <a class="btn btn--outline" href="#" data-mirror-chart target="_blank" rel="noopener noreferrer">
+          <svg class="btn__icon btn__icon--bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="4" y="12" width="3.6" height="8" rx="1"/><rect x="10.2" y="6" width="3.6" height="14" rx="1"/><rect x="16.4" y="9" width="3.6" height="11" rx="1"/>
           </svg>
-          <span id="toast-text">Copied!</span>
+          View Chart
+        </a>
+
+        <div class="ca-wrap">
+          <button class="ca-chip" id="copy-ca" type="button">
+            <span class="ca-chip__stack">
+              <span class="ca-chip__label">CA (Base)</span>
+              <!-- app.js writes the truncated address here from config.js. -->
+              <span class="ca-chip__addr" id="ca-short">—</span>
+            </span>
+            <svg class="ca-chip__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M9.4 9.4h9.2v9.2H9.4z"/><path d="M14.6 9.4V5.4H5.4v9.2h4"/>
+            </svg>
+            <span class="sr-only">Copy the contract address</span>
+          </button>
+
+          <div class="toast" id="copy-toast" role="status" aria-live="polite">
+            <svg class="toast__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="m7.8 12.3 2.9 2.9 5.5-5.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="toast-text">Copied!</span>
+          </div>
         </div>
+      </nav>
+
+      <!-- The two partner lockups, each carrying the partner's own supplied
+           logo. Both hrefs are written from config.js by app.js. -->
+      <div class="lockups" data-rise>
+        <a class="lockup" id="link-launched" href="#" target="_blank" rel="noopener noreferrer">
+          <span class="lockup__kicker">Launched on</span>
+          <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=5"
+               width="550" height="112" alt="Stonks.Exchange" decoding="async">
+        </a>
+        <a class="lockup" id="link-rewards" href="#" target="_blank" rel="noopener noreferrer">
+          <span class="lockup__kicker">Holder rewards powered by</span>
+          <img class="lockup__logo" src="images/stockify_logo.png?v=5"
+               width="1250" height="408" alt="Stockify" decoding="async">
+        </a>
       </div>
-    </nav>
 
-    <!-- The two partner lockups, as bordered cards carrying each partner's own
-         supplied logo. Both hrefs are written from config.js by app.js, so no
-         outbound link is hard-coded here. -->
-    <div class="lockups" data-rise>
-      <a class="lockup" id="link-launched" href="#" target="_blank" rel="noopener noreferrer">
-        <span class="lockup__kicker">Launched on</span>
-        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=4"
-             width="550" height="112" alt="Stonks.Exchange" decoding="async">
-        <span class="lockup__arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="lockup" id="link-rewards" href="#" target="_blank" rel="noopener noreferrer">
-        <span class="lockup__kicker">Holder rewards powered by</span>
-        <img class="lockup__logo" src="images/stockify_logo.png?v=4"
-             width="1250" height="408" alt="Stockify" decoding="async">
-        <span class="lockup__arrow" aria-hidden="true">→</span>
-      </a>
+      <!-- ⚠ THE MOCKUP PUTS A HANDWRITTEN “Best work partner!” AND SUNDAR
+           PICHAI'S SIGNATURE HERE, and a matching photo card in the collage
+           below. Neither is built, and this comment is where they would go.
+
+           Sundar Pichai is a real, named, living person who has not said this
+           about this token. A quotation plus a signature plus a date is an
+           endorsement, and inventing one for a financial product is not
+           something a disclaimer further down the page repairs. The photograph
+           supplied for it (images/doogler_photo1.png) is a synthetic image of
+           him, which makes it worse rather than better: it is not a picture
+           anyone took, and it is not licensed from anyone.
+
+           This stays out until there is a real quote from a real source, with
+           the source cited beside it, and a photograph the owner holds the
+           rights to. Everything else in the mockup is built as drawn. -->
+
     </div>
-
   </section>
 
-  <!-- The hero photograph, full bleed. Supplied by the owner at 1981×793 and
-       served at that native width: upscaling past it would add bytes without
-       adding detail. 2.3 MB of PNG became 217 KB of WebP, with a JPEG twin for
-       anything predating WebP.
 
-       width/height are the served file's real dimensions, so the intrinsic
-       ratio reserves the space before it decodes and the band does not jump.
-       fetchpriority=high because on most screens this is the largest element
-       above the fold. -->
-  <div class="herobanner" data-rise>
-    <picture>
-      <source srcset="images/hero.webp?v=4" type="image/webp">
-      <img src="images/hero.jpg?v=4" width="1981" height="793"
-           fetchpriority="high" decoding="async"
-           alt="Jeffree, a cream labradoodle in a Google-logo bandana, sitting in front of a Google campus building.">
-    </picture>
-  </div>
+  <!-- ===================== STATS ===================== -->
+  <!-- Six separate cards, per the mockup: label over figure, a filled colour
+       icon above each, and real gaps between them rather than the single
+       divided strip this template shipped with.
 
-
-  <!-- ===================== STATS STRIP ===================== -->
-  <!-- One white card, six tiles across. The card carries no colour of its own:
-       the icons and the figures are the accent, and each of the four Google
-       colours is used once across the six so the row reads as one set rather
-       than six unrelated badges.
-
-       Every figure here is written by app.js from [data-value]. Until a source
-       answers, each shows an animated ellipsis; where no source can answer it
+       Every figure is written by app.js from [data-value]. Until a source
+       answers each shows an animated ellipsis; where no source can answer it
        shows an em dash rather than a number that is not real. -->
   <section class="wrap statwrap">
     <div class="stats" id="stats" aria-label="Live token stats">
 
       <div class="stat">
-        <span class="stat__icon stat__icon--b" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 3.5v17"/><path d="M16.2 7.4c-.9-1-2.3-1.6-4.2-1.6-2.4 0-3.9 1.1-3.9 2.8 0 1.8 1.5 2.5 3.9 3.1 2.6.6 4.3 1.4 4.3 3.4 0 1.9-1.7 3.1-4.3 3.1-2.1 0-3.6-.7-4.5-1.8"/></svg>
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="ic-coins">
+            <ellipse cx="12" cy="6.6" rx="7.4" ry="2.8" fill="#34a853"/>
+            <path d="M4.6 10.4c0 1.55 3.31 2.8 7.4 2.8s7.4-1.25 7.4-2.8v-2.2c0 1.55-3.31 2.8-7.4 2.8s-7.4-1.25-7.4-2.8Z" fill="#1e8e3e"/>
+            <path d="M4.6 14.2c0 1.55 3.31 2.8 7.4 2.8s7.4-1.25 7.4-2.8V12c0 1.55-3.31 2.8-7.4 2.8S4.6 13.55 4.6 12Z" fill="#34a853"/>
+            <path d="M4.6 18c0 1.55 3.31 2.8 7.4 2.8s7.4-1.25 7.4-2.8v-2.2c0 1.55-3.31 2.8-7.4 2.8s-7.4-1.25-7.4-2.8Z" fill="#1e8e3e"/>
+          </svg>
         </span>
         <p class="stat__label">Total Fees Collected</p>
-        <p class="stat__value"><span data-value="fees"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span><!-- The unit shows only when the fees tile is reporting tokens rather than dollars, which happens when the reward token cannot be priced. GOOGLc is the reward contract's own symbol(), read on chain. --><span class="stat__unit" data-unit-for="fees" hidden>GOOGLc</span></p>
+        <p class="stat__value"><span data-value="fees"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span><!-- shown only when the fees tile is reporting tokens rather than dollars, which happens when the reward token cannot be priced --><span class="stat__unit" data-unit-for="fees" hidden>GOOGLc</span></p>
       </div>
 
       <div class="stat">
-        <span class="stat__icon stat__icon--g" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 15.5V4.2"/><path d="m7.8 11.4 4.2 4.1 4.2-4.1"/><path d="M4.5 17.2v1.4a1.4 1.4 0 0 0 1.4 1.4h12.2a1.4 1.4 0 0 0 1.4-1.4v-1.4"/></svg>
+        <span class="stat__icon" aria-hidden="true">
+          <!-- Google's own G, per the mockup, drawn rather than fetched. -->
+          <svg viewBox="0 0 24 24" class="ic-g">
+            <path fill="#4285f4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.05H12v3.88h5.38a4.6 4.6 0 0 1-2 3.02v2.51h3.24c1.89-1.74 2.98-4.3 2.98-7.36Z"/>
+            <path fill="#34a853" d="M12 22c2.7 0 4.96-.9 6.62-2.41l-3.24-2.51c-.9.6-2.04.96-3.38.96-2.6 0-4.8-1.76-5.59-4.12H3.07v2.59A10 10 0 0 0 12 22Z"/>
+            <path fill="#fbbc05" d="M6.41 13.92a6 6 0 0 1 0-3.84V7.49H3.07a10 10 0 0 0 0 9.02l3.34-2.59Z"/>
+            <path fill="#ea4335" d="M12 5.94c1.47 0 2.79.51 3.83 1.5l2.87-2.87C16.95 2.98 14.7 2 12 2a10 10 0 0 0-8.93 5.49l3.34 2.59C7.2 7.72 9.4 5.94 12 5.94Z"/>
+          </svg>
         </span>
         <!-- Named by the reward contract's own symbol(), not by the branding:
              it answers "GOOGLc", the platform's wrapper decorating the ticker
              it wraps, exactly as $BOX's answered "AMZNc". -->
         <p class="stat__label">Total GOOGLc Distributed</p>
-        <p class="stat__value"><span data-value="distributed"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span></p>
+        <p class="stat__value"><span data-value="distributed"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span> <span class="stat__suffix">GOOGLc</span></p>
         <p class="stat__sub" data-chip-for="distributedUsd">(<b data-value="distributedUsd"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></b>)</p>
       </div>
 
       <div class="stat">
-        <span class="stat__icon stat__icon--y" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><circle cx="9" cy="8.4" r="3.1"/><path d="M3.6 19.4c0-3 2.4-5 5.4-5s5.4 2 5.4 5"/><path d="M16.2 6.1a3 3 0 0 1 0 5.9"/><path d="M17.4 14.9c1.9.5 3.2 2.2 3.2 4.5"/></svg>
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="ic-solid" fill="#4285f4">
+            <circle cx="9" cy="8" r="3.2"/><circle cx="16.6" cy="9" r="2.5"/>
+            <path d="M3.4 19.2c0-3.1 2.5-5.2 5.6-5.2s5.6 2.1 5.6 5.2Z"/>
+            <path d="M16.2 13.6c2.4.2 4.4 1.9 4.4 4.6h-4.1a7 7 0 0 0-1.4-4.3 6 6 0 0 1 1.1-.3Z"/>
+          </svg>
         </span>
         <p class="stat__label">Holders</p>
         <p class="stat__value"><span data-value="holders"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span></p>
       </div>
 
       <div class="stat">
-        <span class="stat__icon stat__icon--r" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.3v9.4"/><path d="M14.4 9.6c-.5-.6-1.4-1-2.4-1-1.5 0-2.4.7-2.4 1.7s.9 1.5 2.4 1.9c1.6.4 2.6.9 2.6 2s-1 1.9-2.6 1.9c-1.2 0-2.1-.4-2.6-1.1"/></svg>
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="ic-solid" fill="#4285f4">
+            <rect x="4" y="12.5" width="3.8" height="7.5" rx="1.1"/>
+            <rect x="10.1" y="5.6" width="3.8" height="14.4" rx="1.1"/>
+            <rect x="16.2" y="9.2" width="3.8" height="10.8" rx="1.1"/>
+          </svg>
         </span>
         <p class="stat__label">Market Cap</p>
         <p class="stat__value"><span data-value="marketCap"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span></p>
       </div>
 
       <div class="stat">
-        <span class="stat__icon stat__icon--b" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 3.6 5.2 12.3a6.8 6.8 0 1 0 13.6 0Z"/><path d="M5.6 14.6c1.6 1.2 3.2 1.2 4.8 0s3.2-1.2 4.8 0 3.2 1.2 3.4.3"/></svg>
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="ic-solid" fill="#4285f4">
+            <path d="M12 2.8 5.9 11.4a7.3 7.3 0 1 0 12.2 0Z"/>
+          </svg>
         </span>
         <p class="stat__label">Liquidity</p>
         <p class="stat__value"><span data-value="liquidity"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span></p>
       </div>
 
       <div class="stat">
-        <span class="stat__icon stat__icon--g" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M4.4 19.6h15.2"/><path d="M7 19.6v-6.2"/><path d="M11.6 19.6V8.1"/><path d="M16.2 19.6v-9"/></svg>
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="ic-trend">
+            <path d="M3.6 16.4 9 11l3.4 3.4L20 6.8" fill="none" stroke="#4285f4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.2 6.8H20v4.8" fill="none" stroke="#4285f4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </span>
         <p class="stat__label">24h Volume</p>
         <p class="stat__value"><span data-value="volume24h"><span class="dots" role="img" aria-label="Loading"><i></i><i></i><i></i></span></span></p>
@@ -307,24 +331,19 @@
 
     </div>
 
-    <!-- app.js rewrites this line each load: `live` while a source answered,
+    <!-- app.js rewrites this each load: `live` while a source answered,
          `stale` while the tiles show what was last read. -->
     <p class="legend" id="dash-note" aria-live="polite">
       <span class="legend__dot" aria-hidden="true"></span>
       <span id="legend-text">Reading the chain…</span>
     </p>
 
-    <!-- The precise version of the headline's promise. This is deliberately
-         plain: the reward token is a tokenized wrapper the platform issues,
-         not equity, not a share, and it carries no shareholder rights.
-
-         The figures here are stated as the contracts answer them. The reward
-         contract's symbol() is "GOOGLc" and its name() is "Alphabet Inc." —
-         a name a wrapper is free to choose and which is NOT a claim of
-         issuance by Alphabet. No share class is named: the GOOGL ticker
-         denotes Alphabet's Class A stock, but what this wrapper tracks is the
-         platform's business and has not been verified here, so the page says
-         what it knows and stops. -->
+    <!-- The precise version of the headline's promise, kept directly under the
+         figure it qualifies. The reward contract's symbol() is "GOOGLc" and
+         its name() is "Alphabet Inc." — a label a wrapper is free to choose,
+         and not a claim of issuance by Alphabet. No share class is named: the
+         GOOGL ticker denotes Class A stock, but what this wrapper tracks is
+         the platform's business and has not been verified here. -->
     <p class="disclose">
       <b>What holders receive.</b> Rewards are paid in <b>GOOGLc</b>
       (<code>0xb200…f58B7</code>), a tokenized wrapper issued by the launch platform
@@ -342,91 +361,125 @@
 
     <div class="lore__copy">
       <h2 class="lore__title" data-rise>
-        <span>It’s Not Just a Meme.</span>
-        <span class="lore__title2">It’s Real Google Lore.</span>
+        <span>It’s Not Just a <span class="g-ink">Meme</span>.</span>
+        <span>It’s <span class="g-r">R</span>eal <span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span> <span class="g-b">L</span><span class="g-y">o</span><span class="g-g">r</span><span class="g-r">e</span>.</span>
       </h2>
 
-      <!-- Everything in this section is checkable. The Code of Conduct line is
-           quoted AS A QUOTATION with a link to the public page it appears on —
-           not rendered as a screenshot of an internal document, which would be
-           a fabricated Google artifact whether or not the sentence is real. -->
       <div class="lore__body" data-rise>
         <p>
-          Alphabet’s published <b>Code of Conduct</b> really does say it. Under
-          “Dog Policy”, in the document every Alphabet employee works under:
-        </p>
-
-        <blockquote class="quote">
-          <p>“Google’s affection for our canine friends is an integral facet of our corporate culture. We like cats, but we’re a dog company, so as a general rule we feel cats visiting our offices would be fairly stressed out.”</p>
-          <footer>
-            — Alphabet Code of Conduct,
-            <a href="https://abc.xyz/investor/google-code-of-conduct/" target="_blank" rel="noopener noreferrer">abc.xyz<span class="sr-only"> — Alphabet Code of Conduct, Dog Policy</span></a>
-          </footer>
-        </blockquote>
-
-        <p>
-          Googlers who bring their dogs to work are called <b>Dooglers</b>. It is
-          Google’s own term, not a coinage of ours — the company has used it in its
-          own careers and culture material for years, and Doogler merchandise has
-          been sold in the Google store.
+          Alphabet says it out loud in its own Code of Conduct:
+          <a href="https://abc.xyz/investor/google-code-of-conduct/" target="_blank" rel="noopener noreferrer">“We like cats, but we’re a dog company.”</a>
         </p>
 
         <p>
-          At the Mountain View campus, the dog park where they gather is the
-          <b>Dooglerplex</b> — a pun on the Googleplex, and a real fixture of the
-          campus rather than a bit of lore invented for a token.
+          Not a meme — it’s in the governance docs Google publishes for its investors.
         </p>
 
         <p>
-          <b>Jeffree</b> is the dog on this page. Buy $DOOGLER, get $GOOGL — the
-          rest of this site is the receipts for that.
+          Google even has a word for the dogs that come to the office:
+          <b>Dooglers</b>. The dog park at the Mountain View campus is
+          called the <b>Doogleplex</b>.
+        </p>
+
+        <!-- The mockup's last paragraph reads: "And the head Doogler is
+             Jeffree, Sundar Pichai's cream labradoodle — the CEO's own 'best
+             work partner.' When Google shipped Nano Banana, the image model
+             everyone was talking about, Pichai demoed it on Jeffree."
+
+             Both sentences are claims about a real named person — whose dog
+             this is, and what he did with it — and neither is something this
+             build can source. They are replaced with what IS true and
+             checkable, which is also the more honest joke: the dog is the
+             project's, the lore is Google's, and the pictures are models. -->
+        <p>
+          And the head Doogler is <b>Jeffree</b> — the face of this project, not
+          of Google’s. The lore above is Google’s and is checkable. The dog is
+          ours, the pictures are generated, and the rewards are onchain.
         </p>
       </div>
 
       <div class="lore__actions" data-rise>
-        <a class="btn btn--solid" href="https://abc.xyz/investor/google-code-of-conduct/" target="_blank" rel="noopener noreferrer">Read the Full Lore</a>
-        <a class="btn btn--outline" href="#stats">View Receipts</a>
+        <a class="btn btn--outline" href="https://abc.xyz/investor/google-code-of-conduct/" target="_blank" rel="noopener noreferrer">
+          <svg class="btn__icon btn__icon--stroke" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 6.6C10.4 5.3 8.3 4.8 4.8 4.8v12.6c3.5 0 5.6.5 7.2 1.8 1.6-1.3 3.7-1.8 7.2-1.8V4.8c-3.5 0-5.6.5-7.2 1.8Z"/><path d="M12 6.6v12.6"/>
+          </svg>
+          <span><u>Read the Full Lore</u></span>
+        </a>
+        <a class="btn btn--outline" href="#stats">
+          <svg class="btn__icon btn__icon--stroke" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6.4 3.4h7.8l4.2 4.2v13H6.4z"/><path d="M14 3.4v4.4h4.4"/><path d="M9 12.6h6"/><path d="M9 16h6"/>
+          </svg>
+          View Receipts
+        </a>
       </div>
     </div>
 
-    <!-- ⚠ ARTWORK PENDING: the scattered collage of tilted photo cards.
-         Each slot takes one of the supplied dog photos; the caption under each
-         is set in a handwritten face.
+    <!-- The scattered card stack. Three cards and a handwritten note, in the
+         mockup's arrangement.
 
-         ⚠ NOT BUILT, DELIBERATELY: the mockup places a photo of Sundar Pichai
-         here carrying a handwritten “Best work partner!”, a signature and a
-         date. That is an endorsement from a real, named person who has given
-         none, and inventing it is not something a disclaimer fixes. The same
-         goes for the smaller repeated “Best work partner!” caption in the
-         hero. If the owner supplies a genuine, sourced quote together with a
-         photo they hold the rights to, it can go in here WITH THE SOURCE
-         CITED beside it. Until then this card set carries the dog only. -->
-    <div class="collage" aria-label="Photos of Jeffree">
-      <figure class="polaroid polaroid--a art-slot">
-        <span class="art-slot__tag">photo 1</span>
-        <figcaption>Good boy at the Plex</figcaption>
+         ⚠ THE MOCKUP'S FOURTH CARD — a photograph of Sundar Pichai with the
+         dog, captioned "Best work partner!" over his signature and a date —
+         is NOT BUILT. See the note in the hero for why. -->
+    <div class="collage" aria-label="Jeffree, and the lore">
+
+      <!-- The Code of Conduct card. The mockup styles this as a Google-branded
+           internal document, with a section number and a highlighted line.
+           That is a fabricated Google artifact even though the sentence inside
+           it is genuine — a true quote dressed as a leaked document is still a
+           forged document. It is built as what it actually is instead: a
+           quotation, attributed, linking to the public page it appears on. The
+           card keeps the mockup's position, size and tilt. -->
+      <figure class="card card--quote">
+        <blockquote>
+          <p>“Google’s affection for our canine friends is an integral facet of our corporate culture. <mark>We like cats, but we’re a dog company</mark>, so as a general rule we feel cats visiting our offices would be fairly stressed out.”</p>
+        </blockquote>
+        <figcaption>
+          Alphabet <b>Code of Conduct</b>, “Dog Policy” —
+          <a href="https://abc.xyz/investor/google-code-of-conduct/" target="_blank" rel="noopener noreferrer">abc.xyz</a>
+        </figcaption>
       </figure>
-      <figure class="polaroid polaroid--b art-slot">
-        <span class="art-slot__tag">photo 2</span>
-        <figcaption>Badge photo day</figcaption>
+
+      <figure class="card card--photo card--cap">
+        <picture>
+          <source srcset="images/photo_cap.webp?v=5" type="image/webp">
+          <img src="images/photo_cap.jpg?v=5" width="800" height="800" loading="lazy" decoding="async"
+               alt="Jeffree sitting on grass beside a multicoloured Doogler propeller cap.">
+        </picture>
+        <figcaption>Doogler in training <span aria-hidden="true">🐾</span></figcaption>
       </figure>
-      <figure class="polaroid polaroid--c art-slot">
-        <span class="art-slot__tag">photo 3</span>
-        <figcaption>Dooglerplex regular</figcaption>
+
+      <figure class="card card--photo card--jump">
+        <picture>
+          <source srcset="images/photo_jump.webp?v=5" type="image/webp">
+          <img src="images/photo_jump.jpg?v=5" width="800" height="800" loading="lazy" decoding="async"
+               alt="Jeffree in a blue cape, mid-jump over an agility bar.">
+        </picture>
+        <figcaption>Full send, every time</figcaption>
       </figure>
+
+      <!-- The mockup's handwritten checklist. Kept as drawn — and the middle
+           line is the honest one: these are generated pictures, and the page
+           says so rather than implying a photo shoot. -->
+      <ul class="scribble" aria-label="About these pictures">
+        <li>Same dog.</li>
+        <li>Different models.</li>
+        <li>Always a good boy.</li>
+      </ul>
     </div>
 
   </section>
 
 
   <!-- ===================== DARK BANNER ===================== -->
-  <!-- ⚠ ARTWORK PENDING: the Earth-from-space image sits behind this band.
-       Set it on .banner as a background-image in the stylesheet; the dark
-       ground and the text contrast are already built so the type stays legible
-       over whatever photo lands. -->
-  <section class="banner">
-    <div class="banner__in wrap">
-      <p class="banner__line">A brighter Google with more dogs. 🐾</p>
+  <!-- ⚠ ARTWORK PENDING: the Earth-from-space image sits at the left of this
+       band in the mockup. Set it on .banner as a background-image layered
+       UNDER the gradient already written there, which is what keeps the type
+       legible over whatever the photo turns out to be. Until then the band is
+       the dark ground alone, with a blue cast at the left standing in for the
+       planet's limb. -->
+  <section class="wrap bannerwrap">
+    <div class="banner">
+      <p class="banner__line">A brighter Google<br>with more dogs. <span aria-hidden="true">🐾</span></p>
       <div class="banner__mark">
         <span class="wordmark wordmark--lg wordmark--onDark" aria-label="$DOOGLER">
           <span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span>
@@ -445,43 +498,37 @@
 
     <div class="foot__left">
       <a class="brand brand--foot" href="#top">
-        <img class="brand__avatar" src="images/avatar.png?v=4" width="256" height="256"
-             alt="" decoding="async">
+        <img class="brand__avatar" src="images/avatar.png?v=5" width="256" height="256" alt="" decoding="async">
         <span class="brand__name">
-          <span class="brand__first">Jeffree</span>
-          <span class="wordmark" aria-label="$DOOGLER">
-            <span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span>
-          </span>
+          <span class="wordmark" aria-label="Jeffree $DOOGLER">Jeffree&nbsp;<span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span>
+          <span class="foot__tag">Buy $DOOGLER. Get $GOOGL.</span>
         </span>
       </a>
-      <p class="foot__tag">Buy $DOOGLER. Get $GOOGL.</p>
     </div>
 
-    <!-- The same two lockups as the hero. These carry their own ids because
-         app.js writes both pairs' hrefs from config.js. -->
+    <!-- The same two lockups. These carry their own ids because app.js writes
+         both pairs' hrefs from config.js. -->
     <div class="foot__mid">
       <a class="lockup lockup--foot" id="link-launched-foot" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Launched on</span>
-        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=4"
+        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=5"
              width="550" height="112" alt="Stonks.Exchange" decoding="async">
-        <span class="lockup__arrow" aria-hidden="true">→</span>
       </a>
       <a class="lockup lockup--foot" id="link-rewards-foot" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Holder rewards powered by</span>
-        <img class="lockup__logo" src="images/stockify_logo.png?v=4"
+        <img class="lockup__logo" src="images/stockify_logo.png?v=5"
              width="1250" height="408" alt="Stockify" decoding="async">
-        <span class="lockup__arrow" aria-hidden="true">→</span>
       </a>
     </div>
 
     <!-- Fixed properties, so they are written in the markup rather than
-         fetched. Total supply is the token's own totalSupply() as discover.yml
-         read it, corroborated by the platform's /api/coins entry. -->
-    <dl class="facts">
-      <div><dt>Total supply</dt><dd>1,000,000,000</dd></div>
-      <div><dt>Chain</dt><dd>Base</dd></div>
-      <div><dt>Rewards paid in</dt><dd>GOOGLc</dd></div>
-    </dl>
+         fetched. Total supply is the token's own totalSupply() as
+         discover.yml read it, corroborated by /api/coins. -->
+    <div class="foot__facts">
+      <p><b>1,000,000,000</b> total supply</p>
+      <p><b>Base</b> chain</p>
+      <p>A brighter Google with more dogs. <span aria-hidden="true">🐾</span></p>
+    </div>
 
   </div>
 
@@ -492,9 +539,11 @@
     <p>
       <b>Not affiliated with Google.</b> Jeffree $DOOGLER is an independent
       community meme token. It is not affiliated with, endorsed by, sponsored by,
-      or connected to Google LLC or Alphabet Inc. in any way. All trademarks and
-      product names are the property of their respective owners. Quoted material is
-      attributed and linked to its public source.
+      or connected to Google LLC or Alphabet Inc. in any way, and no Google or
+      Alphabet employee has endorsed it. All trademarks and product names are the
+      property of their respective owners. Quoted material is attributed and
+      linked to its public source. <b>The photographs of Jeffree on this page are
+      AI-generated.</b>
     </p>
     <p>
       Nothing here is financial advice or an offer to sell securities. $DOOGLER is a
@@ -560,7 +609,7 @@
       el.classList.add('is-in');
     });
 
-    var groups = ['.stat', '.lockup--foot', '.polaroid', '.foot__left', '.facts > div'];
+    var groups = ['.stat', '.card', '.scribble', '.lockup--foot', '.foot__left', '.foot__facts'];
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
@@ -582,7 +631,7 @@
 <!-- ?v= is the cache buster: run `node scripts/stamp.mjs` on every deploy,
      which moves every ?v= here and `version` in config.js together. Skip it
      and a CDN keeps serving the previous config.js and app.js. -->
-<script src="config.js?v=4"></script>
-<script src="assets/js/app.js?v=4"></script>
+<script src="config.js?v=5"></script>
+<script src="assets/js/app.js?v=5"></script>
 </body>
 </html>
