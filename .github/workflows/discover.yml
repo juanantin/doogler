@@ -39,7 +39,8 @@ jobs:
           RPC_URL: ${{ secrets.RPC_URL }}
           # Addresses to test as the distributor: the reward token should flow
           # both in and out of the real one. Comma-separated.
-          # Blank until this token's own candidate distributor is known —
-          # a sibling's address here tests the wrong contract.
-          CANDIDATES: ''
+          # The address in the owner's Stockify panel URL. Listed as a
+          # CANDIDATE, not as fact: the run reports the reward token's flow in
+          # and out of it, and only a two-way flow makes it the distributor.
+          CANDIDATES: '0x0bfd15e7360acaa813d8823ec341341355e55363'
         run: node scripts/discover-token.mjs

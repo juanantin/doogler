@@ -23,8 +23,9 @@ window.SITE_CONFIG = {
   // The token people buy. The CA button copies this, the chart button links to
   // it, and DexScreener is searched by it. Nothing on the dashboard resolves
   // without it.
-  // TODO: the owner's Base contract address for $DOOGLER.
-  contractAddress: null,
+  // Supplied by the owner. Checksum-cased as given; app.js lowercases it
+  // wherever a comparison needs to be case-insensitive.
+  contractAddress: '0xFf70B676aA2f96E293f020539b36d817179dBaa3',
 
   // The token holders are paid in. Used to price "total distributed" in USD
   // when the rewards source doesn't give a USD figure itself, so the sub-line
@@ -109,17 +110,20 @@ window.SITE_CONFIG = {
   /* ---- Links ---------------------------------------------------------- */
 
   links: {
-    // TODO: the owner's X account URL.
-    x: null,
+    x: 'https://x.com/Doogler_base',
 
     // Leave null to auto-build a DexScreener link from the contract address.
     chart: null,
 
     // The two partner lockups — both hrefs are written from here.
-    // TODO: launchedIn is thestonks.exchange/token/<contractAddress>;
-    //       rewardsBy is the owner's Stockify index URL.
-    launchedIn: null,
-    rewardsBy: null,
+    launchedIn: 'https://www.thestonks.exchange/token/0xFf70B676aA2f96E293f020539b36d817179dBaa3',
+    // The owner's Stockify panel for THIS token. The address in this URL,
+    // 0x0bfd15e7360acaa813d8823ec341341355e55363, is almost certainly the
+    // rewards index — that is how it lined up on the sibling — but it is left
+    // out of contracts.rewardsIndex below until /api/fee-routing says so
+    // independently. A distributor is what the indexer sums; assuming it from
+    // a URL is exactly the shortcut this repo does not take.
+    rewardsBy: 'https://www.stockify.finance/indices/0x0bfd15e7360acaa813d8823ec341341355e55363',
   },
 
   /* ======================================================================
