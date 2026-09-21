@@ -57,10 +57,10 @@
 
      The ?v= below is what makes a browser let go of the icon it has cached;
      node scripts/stamp.mjs moves all of them together. -->
-<link rel="icon" href="favicon.ico?v=3" sizes="any">
-<link rel="icon" type="image/png" href="images/favicon.png?v=3">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=3">
-<link rel="manifest" href="site.webmanifest?v=3">
+<link rel="icon" href="favicon.ico?v=4" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon.png?v=4">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=4">
+<link rel="manifest" href="site.webmanifest?v=4">
 
 <!-- One face — Inter — across five weights. 800 is not decoration: the
      wordmark and the section headings are set in it, and Inter's 700 is
@@ -70,7 +70,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=3">
+<link rel="stylesheet" href="assets/css/styles.css?v=4">
 </head>
 
 <!-- No `anim` class here on purpose: the entrance animation hides everything
@@ -87,7 +87,7 @@
     <a class="brand" href="#top" aria-label="Jeffree $DOOGLER — home">
       <!-- Cropped from the hero to the dog's head — see images/src/README.md.
            The whole photo at 40px is a smudge; the head still reads. -->
-      <img class="brand__avatar" src="images/avatar.png?v=3" width="256" height="256"
+      <img class="brand__avatar" src="images/avatar.png?v=4" width="256" height="256"
            alt="" decoding="async">
       <span class="brand__name">
         <span class="brand__first">Jeffree</span>
@@ -208,13 +208,13 @@
     <div class="lockups" data-rise>
       <a class="lockup" id="link-launched" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Launched on</span>
-        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=3"
+        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=4"
              width="550" height="112" alt="Stonks.Exchange" decoding="async">
         <span class="lockup__arrow" aria-hidden="true">→</span>
       </a>
       <a class="lockup" id="link-rewards" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Holder rewards powered by</span>
-        <img class="lockup__logo" src="images/stockify_logo.png?v=3"
+        <img class="lockup__logo" src="images/stockify_logo.png?v=4"
              width="1250" height="408" alt="Stockify" decoding="async">
         <span class="lockup__arrow" aria-hidden="true">→</span>
       </a>
@@ -233,8 +233,8 @@
        above the fold. -->
   <div class="herobanner" data-rise>
     <picture>
-      <source srcset="images/hero.webp?v=3" type="image/webp">
-      <img src="images/hero.jpg?v=3" width="1981" height="793"
+      <source srcset="images/hero.webp?v=4" type="image/webp">
+      <img src="images/hero.jpg?v=4" width="1981" height="793"
            fetchpriority="high" decoding="async"
            alt="Jeffree, a cream labradoodle in a Google-logo bandana, sitting in front of a Google campus building.">
     </picture>
@@ -445,7 +445,7 @@
 
     <div class="foot__left">
       <a class="brand brand--foot" href="#top">
-        <img class="brand__avatar" src="images/avatar.png?v=3" width="256" height="256"
+        <img class="brand__avatar" src="images/avatar.png?v=4" width="256" height="256"
              alt="" decoding="async">
         <span class="brand__name">
           <span class="brand__first">Jeffree</span>
@@ -462,13 +462,13 @@
     <div class="foot__mid">
       <a class="lockup lockup--foot" id="link-launched-foot" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Launched on</span>
-        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=3"
+        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=4"
              width="550" height="112" alt="Stonks.Exchange" decoding="async">
         <span class="lockup__arrow" aria-hidden="true">→</span>
       </a>
       <a class="lockup lockup--foot" id="link-rewards-foot" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Holder rewards powered by</span>
-        <img class="lockup__logo" src="images/stockify_logo.png?v=3"
+        <img class="lockup__logo" src="images/stockify_logo.png?v=4"
              width="1250" height="408" alt="Stockify" decoding="async">
         <span class="lockup__arrow" aria-hidden="true">→</span>
       </a>
@@ -582,7 +582,7 @@
 <!-- ?v= is the cache buster: run `node scripts/stamp.mjs` on every deploy,
      which moves every ?v= here and `version` in config.js together. Skip it
      and a CDN keeps serving the previous config.js and app.js. -->
-<script src="config.js?v=3"></script>
-<script src="assets/js/app.js?v=3"></script>
+<script src="config.js?v=4"></script>
+<script src="assets/js/app.js?v=4"></script>
 </body>
 </html>

@@ -41,6 +41,20 @@
   // amount survives, and never so many that it turns into a scale readout.
   var nfFine = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 });
 
+  /* TOKEN AMOUNTS UNDER A THOUSAND keep their decimals, which is a change from
+     the sibling builds and is forced by what this token is paid in.
+
+     The whole-numbers rule above was written for reward tokens counted in
+     millions, where "72,834.79" says nothing "72,835" does not. GOOGLc is not
+     that: it carries EIGHT decimals and trades near $353, so the distributed
+     figure is 1.90496513 tokens. Rounded, that tile read "2  ($673)" — a
+     number that has lost the thing it was measuring and looks, beside a
+     three-digit dollar figure, like something broken.
+
+     Four places, so the reading stays honest without becoming a scale
+     readout, and only below 1,000 so nothing else on the page changes. */
+  var nfTokens = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+
   function usd(n) {
     if (n !== 0 && Math.abs(n) < 1) return '$' + nfFine.format(n);
     return '$' + nf0.format(Math.round(n));
@@ -48,6 +62,9 @@
 
   function amount(n) {
     if (n !== 0 && Math.round(n) === 0) return nfFine.format(n);
+    // See nfTokens: a high-value, high-precision reward token makes whole
+    // numbers meaningless below about a thousand units.
+    if (n !== 0 && Math.abs(n) < 1000) return nfTokens.format(n);
     return nf0.format(Math.round(n));
   }
   function count(n) { return nf0.format(Math.round(n)); }
