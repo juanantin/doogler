@@ -172,6 +172,10 @@ a { color: inherit; text-decoration: none; }
   flex: none;
   border-radius: 50%;
   overflow: hidden;
+  /* The source is a square crop of the dog's head, so cover never has much to
+     trim — but it is stated rather than assumed, because a replacement mark
+     that is not square would otherwise stretch the dog. */
+  object-fit: cover;
 }
 
 .brand__name {
@@ -245,12 +249,10 @@ a { color: inherit; text-decoration: none; }
    HERO — two columns
    ========================================================================== */
 
+/* The hero is a single column of copy now; the photograph runs full bleed
+   beneath it rather than sitting beside it. */
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
-  gap: clamp(28px, 5vw, 68px);
-  align-items: center;
-  padding-block: clamp(40px, 7vw, 86px);
+  padding-block: clamp(36px, 6vw, 76px) clamp(26px, 4vw, 44px);
 }
 
 .hero__title {
@@ -259,7 +261,7 @@ a { color: inherit; text-decoration: none; }
      hero column at every width. The mockup's hierarchy depends on that break:
      let the first line wrap and the wordmark detaches from the verb, which is
      the one thing the headline exists to join. */
-  font-size: clamp(34px, 5.2vw, 64px);
+  font-size: clamp(36px, 6.4vw, 78px);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -.035em;
@@ -268,7 +270,7 @@ a { color: inherit; text-decoration: none; }
 
 .hero__sub {
   margin: 0 0 28px;
-  max-width: 46ch;
+  max-width: 62ch;
   font-size: clamp(15.5px, 1.35vw, 18px);
   color: var(--ink-2);
 }
@@ -403,9 +405,9 @@ a { color: inherit; text-decoration: none; }
 
 .lockups {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 10px;
-  max-width: 560px;
+  max-width: 620px;
 }
 
 .lockup {
@@ -435,6 +437,32 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
 }
 .lockup__name { grid-area: name; font-size: 15px; font-weight: 700; }
+
+/* Each partner's own supplied logo. Sized by HEIGHT so the two sit on a
+   shared optical baseline despite very different source proportions — the
+   Stockify lockup is 3:1 and the Stonks button is 5:1, so matching their
+   widths instead would leave one of them half the other's size. */
+.lockup__logo {
+  grid-area: name;
+  height: 26px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+  margin-top: 3px;
+}
+/* The Stonks mark is drawn FOR A DARK GROUND: its background is transparent
+   and its dominant ink is #e8ecfc, which on this white card is all but
+   invisible — 1.1:1 against the surface. It gets the dark plate it was drawn
+   for rather than being recoloured, which would mean redrawing someone else's
+   logo. The plate is sized by the same optical height as the other lockup. */
+.lockup__logo--stonks {
+  height: 22px;
+  padding: 7px 11px;
+  background: #1b1f27;
+  box-sizing: content-box;
+  margin-top: 0;
+}
 .lockup__arrow {
   grid-area: arrow;
   font-size: 17px;
@@ -481,10 +509,27 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.4;
 }
 
-.hero__art {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--r-card);
-  box-shadow: var(--card-shadow);
+/* The hero photograph, edge to edge.
+
+   No aspect-ratio is set here ON PURPOSE: the ratio lives in one place, the
+   image's own width/height attributes, so a replacement photo of a different
+   shape cannot silently disagree with a hardcoded number and get cropped.
+   The image simply fills the width and takes whatever height that implies.
+
+   On very wide screens the band is capped and the photograph centred, because
+   a 2.5:1 frame stretched across a 2560px monitor puts the dog's head above
+   the fold and nothing else. */
+.herobanner {
+  width: 100%;
+  overflow: hidden;
+  background: var(--band);
+}
+.herobanner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 2200px;
+  margin-inline: auto;
 }
 
 
@@ -627,6 +672,13 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--r-card);
 }
 .disclose b { color: var(--ink); font-weight: 700; }
+.disclose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .92em;
+  padding: 1px 5px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
 
 
 /* ==========================================================================
@@ -886,8 +938,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 960px) {
-  .hero, .lore { grid-template-columns: minmax(0, 1fr); }
-  .hero__art { max-width: 560px; }
+  .lore { grid-template-columns: minmax(0, 1fr); }
   .collage { max-width: 520px; }
   .foot__in { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .facts { grid-column: 1 / -1; }

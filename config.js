@@ -16,7 +16,7 @@ window.SITE_CONFIG = {
      a browser actually has rather than guessing at a cache. Bump it together
      with the ?v= on the script tags in index.html whenever you deploy —
      `node scripts/stamp.mjs` moves all of them at once. */
-  version: '1',
+  version: '3',
 
   /* ---- Token ---------------------------------------------------------- */
 
@@ -27,11 +27,15 @@ window.SITE_CONFIG = {
   // wherever a comparison needs to be case-insensitive.
   contractAddress: '0xFf70B676aA2f96E293f020539b36d817179dBaa3',
 
-  // The token holders are paid in. Used to price "total distributed" in USD
-  // when the rewards source doesn't give a USD figure itself, so the sub-line
-  // under that card depends on it.
-  // TODO: from discover.yml — the deepest pair's other side, read off chain.
-  rewardTokenAddress: null,
+  // The token holders are paid in — the quote side of the deepest pair, and
+  // what thestonks.exchange's /api/coins names as this token's quote. Used to
+  // price "total distributed" in USD when the rewards source doesn't give a
+  // USD figure itself, so the sub-line under that card depends on it.
+  // Read off Base rather than inherited: symbol() "GOOGLc", name()
+  // "Alphabet Inc.", decimals() 8 — corroborated by the platform's own
+  // quote_decimals: 8. EIGHT, not eighteen. See KEX_DECIMALS in
+  // worker/src/config.js for what sharing one constant costs.
+  rewardTokenAddress: '0xb2000000000000000000002D0BA3164cc74f58B7',
 
   // Free, keyless, CORS-enabled. Used as the last price source, because it
   // covers tokens DexScreener has no pair for — an index token among them.
@@ -43,9 +47,10 @@ window.SITE_CONFIG = {
   // The block $DOOGLER launched at. The chain scan starts here; nothing
   // relevant happened before it. NEVER leave a sibling token's block in here —
   // that scans a range belonging to another token.
-  // TODO: from discover.yml — /api/coins block_number, corroborated by a
-  // timestamp search for the pool's own pairCreatedAt.
-  launchBlock: null,
+  // The block $DOOGLER launched at — 2026-09-19T21:13:15Z. THREE independent
+  // sources agree: the platform's /api/coins block_number, a timestamp search
+  // for the pool's own pairCreatedAt, and the token's first Transfer log.
+  launchBlock: 51531524,
 
   /* How the reward token is recognised among everything that touches the
      distributor. Matched case-insensitively against each token's own symbol(),
@@ -58,12 +63,11 @@ window.SITE_CONFIG = {
      comparison would have missed it. Whatever this token's reward wrapper for
      $GOOGL actually answers goes here, read off chain.
 
-     ⚠ Left null deliberately: with this null the configured ADDRESS is used
-     instead, never a ticker inherited from the token this repo was copied
-     from. Do not write 'GOOGL' here on the strength of the branding — the
-     branding is what got $BOX wrong.
-     TODO: from discover.yml's symbol() reading. */
-  rewardTokenSymbol: null,
+     Here symbol() reads "GOOGLc" — the platform's wrapper decorating the
+     ticker it wraps, exactly as $BOX's answered "AMZNc" rather than "AMZN".
+     The branding on this page says $GOOGL; the contract says GOOGLc, and this
+     field follows the contract. */
+  rewardTokenSymbol: 'GOOGLc',
 
   /* Holders' share of what leaves the rewards index — the rest is the
      protocol's cut, so the outflow is NOT the distributed figure on its own.
@@ -88,23 +92,40 @@ window.SITE_CONFIG = {
      reports another token's market cap, liquidity and volume. Leave them null
      and the search by contract address is used instead: correct, if slower. */
   contracts: {
-    /* The trading pair. ⚠ Leave null until discover.yml names it and you are
-       certain: DexScreener is asked about THIS pool before it searches, so a
-       stale pool reports another token's market cap no matter what
-       contractAddress says. */
-    pool: null,
+    /* The trading pair: DOOGLER/GOOGLc on Uniswap v3, from /api/coins and
+       corroborated by DexScreener resolving the same pair from the contract
+       address alone.
+
+       ⚠ NAMING IT IS NOT OPTIONAL HERE. This token has TWO pairs on Base: this
+       one, with $32,313 of liquidity, and a Uniswap v4 DOOGLER/ETH pair with
+       $8.51 in it — which also reports a market cap $22,000 higher. Without
+       this field the search by contract address picks between them, and the
+       dust pool is a live answer that would put a wrong market cap, liquidity
+       and volume on the tiles. This is the coin flip the README warns about,
+       and this token actually has it. */
+    pool: '0x09DB9BE4e6FE63D8Ae9696451Fe829504E44c5B2',
     rewardPool: null,
     /* Where trading fees accrue. SHARED BY EVERY TOKEN on the platform —
-       byte-for-byte the same locker on $BOX, $BLUE and $PURR, which is three
-       tokens' worth of proof — so it is NEVER summed: doing that reports the
-       whole platform's fees as this token's. Recorded only so it can be
-       excluded from the holder count. */
-    feeLocker: null,
+       byte-for-byte the same locker on $BOX, $BLUE and $PURR, and now on
+       $DOOGLER too, which is four tokens' worth of proof — so it is NEVER
+       summed: doing that reports the whole platform's fees as this token's.
+       Recorded only so it can be excluded from the holder count. */
+    feeLocker: '0x71D1D363176723f85d98B8B430DF33cde89f0A7f',
     /* The distributor holders are paid from — per token, and the only one of
        these that is this token's alone. Not derivable on chain: it is a
-       routing decision, and /api/fee-routing reports it. Read by the indexer,
-       not by the page. */
-    rewardsIndex: null,
+       routing decision, and /api/fee-routing reports this token's routing as
+       "rewards" with this index. TWO independent sources agree on it: that
+       API, and the Stockify panel URL the owner supplied
+       (stockify.finance/indices/0x0bfd15e7…55363) — checked against each
+       other rather than either one assumed. Read by the indexer, not by the
+       page.
+
+       ⚠ The discovery run's own two-way flow check on this address did not
+       complete (the RPC answered HTTP 400), so "reward token moves both in
+       and out of it" is NOT yet confirmed on chain. The agreement above is
+       what this rests on until scripts/panel-probe.mjs reconciles the
+       indexer's totals against the panel's. */
+    rewardsIndex: '0x0BFD15e7360acAA813d8823Ec341341355e55363',
   },
 
   /* ---- Links ---------------------------------------------------------- */
@@ -222,10 +243,11 @@ window.SITE_CONFIG = {
            these exist purely to survive a node that will not answer it.
            rewardTokenAddress is tried first, then these in order.
 
-           ⚠ EMPTY ON PURPOSE. THIS token's own Stockify index address goes
-           here once known — leaving a sibling's in would ask about the wrong
-           contract. */
-        feeTokenCandidates: [],
+           THIS token's own rewards index, so a node that refuses the
+           unfiltered query still asks about the right contract. */
+        feeTokenCandidates: [
+          '0x0BFD15e7360acAA813d8823Ec341341355e55363',
+        ],
       },
 
       blockscoutBase: 'https://base.blockscout.com',

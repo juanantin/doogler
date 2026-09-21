@@ -4,20 +4,18 @@ name: Index rewards
 # token holders. State lives in data/rewards-state.json, so each run resumes
 # where the last one stopped — a first backfill may take a few runs.
 #
-# ⚠ THE SCHEDULE IS OFF. worker/src/config.js is still all nulls — this repo
-# was copied from juanantin/purr and nothing has been read from the network
-# for $DOOGLER yet. Run .github/workflows/discover.yml, fill that file, seed
-# data/rewards-state.json, and THEN uncomment the cron below. A run against an
-# unset index sums nothing and commits nulls every quarter hour, which on the
-# page is indistinguishable from a site that is broken. (scripts/
-# index-rewards.mjs refuses to scan while MISSING is non-empty, so the cron
-# would only produce failing runs — but an off cron says so louder.)
+# THE SCHEDULE IS ON. worker/src/config.js is real — TOKENS, CONTRACTS
+# (rewardsIndex included), START_BLOCK and both decimals were read from the
+# network by .github/workflows/discover.yml, not carried over from a sibling.
+# Its MISSING list is empty, which is what this job checks before scanning.
 #
-# data/rewards-state.json is ABSENT on purpose right now: loadState() falls
-# back to START_BLOCK only when that file is absent, so no file is the correct
-# state until there is a real START_BLOCK to seed it with. Committing one now
-# would mean committing cursor: 0 — the exact trap below. When you turn the
-# cron on, commit it seeded with cursor = START_BLOCK. Both halves matter. loadState() falls back to
+# data/rewards-state.json is committed alongside it, seeded with cursor =
+# START_BLOCK (51531524). Both halves matter. loadState() falls back to
+# START_BLOCK only when that file is ABSENT, so a present file with a cursor
+# of 0 is read as gospel and scans Base from genesis. And the file is the ONLY
+# thing carrying the backfill between runs, since Actions runners are
+# ephemeral: gitignore it and every run restarts from the seed. Both failures
+# publish nulls and look exactly like a broken site. loadState() falls back to
 # START_BLOCK only when that file is ABSENT, so a present file with a cursor
 # of 0 is read as gospel and scans Base from genesis. And the file is the ONLY
 # thing carrying the backfill between runs, since Actions runners are
@@ -50,8 +48,8 @@ on:
   # scans the chain itself and outranks this file, and the market metrics do
   # not defer to it at all. Push to one of the paths below to force a refresh.
   #
-  # schedule:
-  #   - cron: '7,22,37,52 * * * *'
+  schedule:
+    - cron: '7,22,37,52 * * * *'
   # Also on push to its own inputs. GitHub's scheduler routinely delays a
   # newly added cron by half an hour or more, and dispatching by hand needs a
   # permission not every token carries — neither is a good reason for the site
