@@ -19,9 +19,16 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const HTML = path.join(ROOT, 'index.html');
 const CONFIG = path.join(ROOT, 'config.js');
+/* The stylesheet carries ?v= too. It was missed, and the miss is invisible
+   until an image referenced from CSS is REPLACED: index.html gets a fresh
+   stamp, the stylesheet is re-fetched because its own ?v= moved, and then it
+   asks for background images at whatever version was frozen into it — so a
+   returning browser keeps painting the old picture behind the new page. */
+const CSS = path.join(ROOT, 'assets/css/styles.css');
 
 const html = fs.readFileSync(HTML, 'utf8');
 const config = fs.readFileSync(CONFIG, 'utf8');
+const css = fs.readFileSync(CSS, 'utf8');
 
 const VERSION_RE = /(\bversion:\s*')(\d+)(')/;
 const current = Number((config.match(VERSION_RE) || [])[2]);
@@ -43,7 +50,12 @@ let stampedHtml = html;
 let queries = 0;
 stampedHtml = stampedHtml.replace(/\?v=\d+/g, () => (queries++, `?v=${next}`));
 
+let cssQueries = 0;
+const stampedCss = css.replace(/\?v=\d+/g, () => (cssQueries++, `?v=${next}`));
+
 fs.writeFileSync(HTML, stampedHtml);
 fs.writeFileSync(CONFIG, config.replace(VERSION_RE, `$1${next}$3`));
+fs.writeFileSync(CSS, stampedCss);
 
-console.log(`stamped build ${current} → ${next}  (${queries} ?v= in index.html, 1 version in config.js)`);
+console.log(`stamped build ${current} → ${next}  (${queries} ?v= in index.html, ` +
+            `${cssQueries} in styles.css, 1 version in config.js)`);

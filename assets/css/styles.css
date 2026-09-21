@@ -263,14 +263,14 @@ a { color: inherit; text-decoration: none; }
    background entirely on some builds, and the whole hero would go white. */
 .hero {
   position: relative;
-  background-image: url("../../images/hero.webp?v=4");
+  background-image: url("../../images/hero.webp?v=10");
   background-size: cover;
-  background-position: 62% center;
+  background-position: center;
   isolation: isolate;
 }
 /* Anything without WebP still gets a photograph rather than a blank band. */
 @supports not (background-image: url("a.webp")) {
-  .hero { background-image: url("../../images/hero.jpg?v=4"); }
+  .hero { background-image: url("../../images/hero.jpg?v=10"); }
 }
 
 .hero::before {
@@ -455,7 +455,7 @@ a { color: inherit; text-decoration: none; }
    it at the root; failing that, `background: #1b1f27; padding: 6px 10px;` on
    this rule puts back the dark plate the mark was drawn for, where the same
    fill measures 14:1. */
-.lockup__logo--stonks { height: 30px; }
+.lockup__logo--stonks { height: 36px; }
 /* ==========================================================================
    STATS STRIP — one white card, six tiles
    ========================================================================== */
@@ -669,9 +669,10 @@ a { color: inherit; text-decoration: none; }
   transform: rotate(-1.4deg);
   padding: 16px 18px;
 }
-/* The Code of Conduct quote is the long one and carries the section, so it
-   keeps the full width; the Pichai card sits in the row below it. */
-.card--quote:not(.card--pichai) { grid-column: 1 / -1; }
+/* The Code of Conduct quote carries the section, so it keeps the full width;
+   the Pichai card takes the row below it, and the two photographs the row
+   after that. */
+.card--quote { grid-column: 1 / -1; }
 .card--quote blockquote { margin: 0 0 10px; }
 .card--quote p {
   margin: 0;
@@ -690,18 +691,58 @@ a { color: inherit; text-decoration: none; }
 }
 .card--quote figcaption { font-size: 12px; color: var(--muted); }
 .card--quote figcaption b { color: var(--ink-2); font-weight: 600; }
+.card--ceo figcaption a,
 .card--quote figcaption a {
   color: var(--g-blue);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-/* The Pichai card. Its quote is the short one, so it is set larger — the card
-   is a pull-quote rather than a paragraph — and its sources sit under the
-   attribution as small chips, because being able to check the quote in one
-   click is the entire reason the card is allowed to exist. */
-.card--pichai { transform: rotate(1.6deg); }
-.card--pichai blockquote p { font-size: 19px; font-weight: 600; font-style: italic; }
+/* The Pichai card: illustration at the left, quote and sources at the right,
+   across a row of its own. Its quote is the short one, so it is set larger —
+   the card is a pull-quote rather than a paragraph — and the sources sit
+   under the attribution as chips, because being able to check the quote in
+   one click is the entire reason the card is allowed to exist. */
+.card--ceo {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 148px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  padding: 12px;
+  transform: rotate(1.4deg);
+}
+.card__media { position: relative; }
+.card__media img { width: 100%; height: auto; border-radius: 8px; display: block; }
+
+/* The label that lets the illustration be here at all. Small, but ON the
+   picture rather than beside it, so it cannot be read apart from the thing it
+   describes. */
+.card__tag {
+  position: absolute;
+  left: 6px; bottom: 6px;
+  padding: 2px 7px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(12, 13, 16, .72);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.card--ceo blockquote { margin: 0 0 8px; }
+.card--ceo blockquote p {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+}
+.card--ceo figcaption { font-size: 12px; line-height: 1.5; color: var(--muted); }
+.card--ceo figcaption b { color: var(--ink-2); font-weight: 600; }
 .card__srcs {
   display: flex;
   flex-wrap: wrap;
@@ -938,7 +979,7 @@ a { color: inherit; text-decoration: none; }
     display: block;
     margin-top: 22px;
     aspect-ratio: 1981 / 793;
-    background-image: url("../../images/hero.webp?v=4");
+    background-image: url("../../images/hero.webp?v=10");
     background-size: cover;
     background-position: 62% center;
   }
@@ -954,6 +995,8 @@ a { color: inherit; text-decoration: none; }
 
   .collage { grid-template-columns: minmax(0, 1fr); }
   .card--cap, .card--jump { margin-top: 0; }
+  .card--ceo { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .card__media { max-width: 180px; }
 
   .banner { flex-direction: column; align-items: flex-start; }
   .banner__line, .banner__mark { margin-left: 0; text-align: left; }
