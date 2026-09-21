@@ -71,13 +71,21 @@ window.SITE_CONFIG = {
 
   /* Holders' share of what leaves the rewards index — the rest is the
      protocol's cut, so the outflow is NOT the distributed figure on its own.
-     ⚠ UNVERIFIED FOR THIS TOKEN. 0.9 is the platform's usual split and what
-     $PURR's, $BLUE's and $BOX's panels all read, but it is a PER-TOKEN setting
-     and it is the one multiplier standing between the measured outflow and the
-     figure on the tile. scripts/panel-probe.mjs reads this token's own
-     Stockify panel for it; until that agrees, the distributed figure is
-     provisional and MUST NOT be announced. On $BLUE the panel and the indexer
-     agreed to five decimals — that is the bar. */
+
+     ✓ VERIFIED ON CHAIN FOR THIS TOKEN, to eight decimals, by
+     scripts/split-probe.mjs: of 2.11662791 GOOGLc leaving the index across
+     1,107 transfers to 191 addresses, one address took 9.999999% — 10% to
+     within 1.1 raw units — and the next largest took 2.68%. Holders received
+     0.90000001. $BLUE's five-decimal agreement was the bar; this clears it.
+
+     The Stonks panel's "FEE 1% · 0.7 creator / 0.3 platform" is a DIFFERENT
+     split and does not contradict this one: that divides the trading fee
+     upstream, deciding what reaches the index at all. This divides what
+     leaves it.
+
+     worker/src/config.js now carries PROTOCOL_ADDRESS, so the indexer
+     subtracts that cut exactly rather than applying this constant. This stays
+     as the fallback and as what app.js's own in-browser scan uses. */
   holderShare: 0.9,
 
   /* Related contracts.

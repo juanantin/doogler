@@ -137,19 +137,44 @@ console.log(`  largest single recipient ${topPct.toFixed(2)}% of all outflow`);
 console.log(`  distinct recipients      ${rows.length}`);
 if (rows.length === 0) {
   console.log('\n  Nothing has left the index yet — no reading either way.');
-} else if (topPct >= 20 && topPct <= 45) {
-  console.log('\n  → Consistent with the panel\'s "0.3 platform": one address is taking');
-  console.log('    roughly a third of the outflow, so the rest is holders\' and');
-  console.log('    HOLDER_SHARE should be about ' + ((100 - topPct) / 100).toFixed(2) + '.');
-  console.log('    Better still, set PROTOCOL_ADDRESS to that address in');
-  console.log('    worker/src/config.js — the cut is then subtracted exactly and');
-  console.log('    survives the percentage being changed.');
-} else if (rows.length > 5 && topPct < 20) {
-  console.log('\n  → No dominant recipient. The platform\'s cut is NOT being taken out');
-  console.log('    of this index, so everything leaving it reaches holders and');
-  console.log('    HOLDER_SHARE should be 1.0, with the 0.7/0.3 split happening');
-  console.log('    upstream of the index.');
 } else {
-  console.log('\n  → Inconclusive from the shape alone. Read the table above by hand.');
+  /* The tell is not how BIG the largest recipient is, it is how ROUND. A
+     holder is paid in proportion to a balance, which does not land on a whole
+     percentage and never lands on the same one twice; a protocol cut is a
+     fixed fraction and lands exactly.
+
+     This replaces a band ("between 20% and 45% means a cut"), which got this
+     token wrong: the cut here is 10%, the band said no-cut, and the verdict
+     printed was the opposite of the truth. Roundness is the property that
+     actually distinguishes the two. */
+  const ROUND = [1, 2, 2.5, 5, 7.5, 10, 12.5, 15, 20, 25, 30, 33.33, 40, 50];
+  const near = ROUND.find((r) => Math.abs(topPct - r) < 0.01);
+  if (near) {
+    const share = (100 - near) / 100;
+    console.log(`\n  → The largest recipient takes ${near}% EXACTLY (${topPct.toFixed(6)}%).`);
+    console.log('    A balance-proportional payout does not land on a round percentage,');
+    console.log('    so that address is the protocol\'s cut, taken on the way OUT.');
+    console.log(`    HOLDER_SHARE should be ${share}, and holders received`);
+    console.log(`    ${scale(total - rows[0][1]).toFixed(8)} of ${scale(total).toFixed(8)}.`);
+    console.log(`\n    Better: set PROTOCOL_ADDRESS = '${rows[0][0]}'`);
+    console.log('    in worker/src/config.js so the cut is subtracted exactly and');
+    console.log('    survives the percentage being changed. Reset');
+    console.log('    data/rewards-state.json to its seed in the same commit, or');
+    console.log('    protocolOut accumulates from the current cursor and nothing');
+    console.log('    historical is subtracted.');
+    if (Math.abs(share - Number(CFG.holderShare)) > 1e-9) {
+      console.log(`\n  ⚠ configured holderShare is ${CFG.holderShare}, measurement says ${share}.`);
+    } else {
+      console.log(`\n  ✓ matches the configured holderShare of ${CFG.holderShare}.`);
+    }
+  } else if (rows.length > 5 && topPct < 20) {
+    console.log('\n  → No recipient takes a round fraction, and the largest is only');
+    console.log(`    ${topPct.toFixed(2)}%. Nothing here looks like a protocol cut, so the`);
+    console.log('    split is happening upstream of this index and HOLDER_SHARE');
+    console.log('    should be 1.0. Confirm against the platform\'s panel before');
+    console.log('    trusting it — this is the weaker of the two readings.');
+  } else {
+    console.log('\n  → Inconclusive from the shape alone. Read the table above by hand.');
+  }
 }
 console.log('=========================================================');

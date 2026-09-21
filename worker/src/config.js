@@ -97,18 +97,44 @@ export const STREAMS = [
 
 /* Share of the outflow that reaches holders — the rest is the protocol's cut.
 
-   ⚠ NOT YET VERIFIED FOR THIS TOKEN. 0.9 is the platform's usual split and
-   what $PURR's, $BLUE's and $BOX's panels read, but it is a per-token setting
-   and the one multiplier between the measured outflow and the figure on the
-   tile. scripts/panel-probe.mjs prints this token's own Stockify panel beside
-   what this site publishes; on $BLUE those agreed to five decimals, which is
-   the bar. Until then the distributed figure is provisional and must not be
-   announced.
+   ✓ VERIFIED FOR THIS TOKEN, on chain, to eight decimal places.
+   scripts/split-probe.mjs grouped the rewards index's entire reward-token
+   outflow by recipient: 1,107 transfers, 2.11662791 GOOGLc, 191 addresses.
+   One address took 0.21166278 — 9.999999% of the total, which is 10% to
+   within 1.1 raw units at 8 decimals. The next largest took 2.68%. A
+   holder's balance-proportional share does not land on exactly 10.000000%
+   and certainly not repeatedly, so that address is the protocol's cut,
+   taken on the way OUT of the index. Holders received 0.90000001 of the
+   outflow against the 0.9 assumed — better than the five-decimal agreement
+   $BLUE reached, which was the bar.
 
-   Better still, set PROTOCOL_ADDRESS if the protocol's address turns up — the
-   cut is then subtracted exactly and survives the percentage changing. */
+   A detour worth recording: the Stonks panel publishes "FEE 1% · 0.7
+   creator / 0.3 platform", which looks like it contradicts 0.9 and is why
+   split-probe was written. It does not. That 0.7/0.3 splits the 1% TRADING
+   FEE upstream, deciding how much reaches this index at all; the 0.9 splits
+   what leaves the index. Two different splits at two different points, and
+   the panel names only the first.
+
+   PROTOCOL_ADDRESS is now set to the address that measurement found, so the
+   cut is SUBTRACTED EXACTLY rather than assumed — it survives the platform
+   changing the percentage, which a constant cannot. HOLDER_SHARE stays below
+   as the fallback holderPayout() uses if the address is ever cleared. */
 export const HOLDER_SHARE = 0.9;
-export const PROTOCOL_ADDRESS = null;
+/* The protocol's cut, found by scripts/split-probe.mjs — see above. With this
+   set, holderPayout() returns paidOut MINUS this address's receipts instead of
+   paidOut × HOLDER_SHARE.
+
+   ⚠ Adding this changes the STREAMS list, so the indexer needs protocolOut
+   accumulated FROM START_BLOCK. data/rewards-state.json was reset to its seed
+   in the same commit for exactly that reason: left as it was, protocolOut
+   would start at zero from the current cursor, nothing would be subtracted,
+   and the distributed figure would jump by 10% — every digit plausible.
+
+   The re-scan is self-checking: the new distributed figure must come back at
+   ≈1.90496513 GOOGLc, matching 0.9 × paidOut to eight decimals. If it lands
+   near 2.1166 instead, this address is NOT the protocol's and this line
+   should be reverted to null. */
+export const PROTOCOL_ADDRESS = '0x2a201aDA10b55F1979c8F5e5C303C8a3cDE44c71';
 
 if (PROTOCOL_ADDRESS) {
   STREAMS.push({
