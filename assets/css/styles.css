@@ -263,14 +263,14 @@ a { color: inherit; text-decoration: none; }
    background entirely on some builds, and the whole hero would go white. */
 .hero {
   position: relative;
-  background-image: url("../../images/hero.webp?v=10");
+  background-image: url("../../images/hero.webp?v=11");
   background-size: cover;
   background-position: center;
   isolation: isolate;
 }
 /* Anything without WebP still gets a photograph rather than a blank band. */
 @supports not (background-image: url("a.webp")) {
-  .hero { background-image: url("../../images/hero.jpg?v=10"); }
+  .hero { background-image: url("../../images/hero.jpg?v=11"); }
 }
 
 .hero::before {
@@ -467,7 +467,7 @@ a { color: inherit; text-decoration: none; }
 .stats {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 14px;
+  gap: 10px;
 }
 
 .stat {
@@ -475,8 +475,8 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  gap: 4px;
-  padding: 18px 18px 20px;
+  gap: 3px;
+  padding: 14px 13px 15px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-card);
@@ -489,28 +489,29 @@ a { color: inherit; text-decoration: none; }
    set in a tinted disc. */
 .stat__icon {
   display: block;
-  width: 30px; height: 30px;
-  margin-bottom: 8px;
+  width: 24px; height: 24px;
+  margin-bottom: 6px;
 }
 .stat__icon svg { width: 100%; height: 100%; display: block; }
 
 .stat__label {
   margin: 0;
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 500;
+  line-height: 1.35;
   color: var(--muted);
-  /* Two-line labels must not shove their figure out of line with the rest of
-     the row. */
-  min-height: 2.4em;
+  /* A two-line label must not shove its figure out of line with the rest of
+     the row, so the space for a second line is always reserved. */
+  min-height: 2.7em;
   display: flex;
   align-items: flex-start;
 }
 
 .stat__value {
   margin: 0;
-  font-size: clamp(19px, 1.7vw, 25px);
+  font-size: clamp(17px, 1.42vw, 22px);
   font-weight: 700;
-  letter-spacing: -.02em;
+  letter-spacing: -.025em;
   line-height: 1.15;
   /* Figures that change every minute must not jitter their own width. */
   font-variant-numeric: tabular-nums;
@@ -520,14 +521,14 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
 }
 .stat__unit,
-.stat__suffix { font-size: .62em; font-weight: 700; color: var(--ink); }
+.stat__suffix { font-size: .58em; font-weight: 700; color: var(--ink); }
 /* The suffix belongs to a figure; with no figure it is noise. */
 .stat__value .is-empty ~ .stat__suffix { display: none; }
 .stat__value .is-empty { color: var(--muted); font-weight: 500; }
 
 .stat__sub {
-  margin: 2px 0 0;
-  font-size: 12.5px;
+  margin: 1px 0 0;
+  font-size: 11.5px;
   font-weight: 500;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
@@ -931,8 +932,10 @@ a { color: inherit; text-decoration: none; }
    RESPONSIVE
    ========================================================================== */
 
-/* The six cards go three and three before they go two and two. */
-@media (max-width: 1180px) {
+/* The six cards hold one row down to 900px — the mockup's arrangement, and
+   the whole point of shrinking them. Below that they go three and three
+   before they go two and two. */
+@media (max-width: 900px) {
   .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
@@ -979,15 +982,18 @@ a { color: inherit; text-decoration: none; }
     display: block;
     margin-top: 22px;
     aspect-ratio: 1981 / 793;
-    background-image: url("../../images/hero.webp?v=10");
+    background-image: url("../../images/hero.webp?v=11");
     background-size: cover;
     background-position: 62% center;
   }
   .hero__title, .hero__sub { max-width: none; }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 560px) {
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
   .stat__label { min-height: 0; }
   .legend { justify-content: flex-start; }
 
