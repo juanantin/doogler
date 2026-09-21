@@ -62,6 +62,12 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 1600 } });
 
 console.log('=== panel probe =========================================');
 
+/* Every scraped line, per panel, so the summary below can pull the split out
+   of them. The page dump is truncated and job logs come back as a TAIL, so a
+   line buried at position 70 of a 130-line dump is a line nobody reads — and
+   the split is the one thing this script exists to find. */
+const scraped = [];
+
 for (const [label, url] of TARGETS) {
   console.log(`\n--- ${label} ---\n${url}`);
   try {
@@ -74,6 +80,7 @@ for (const [label, url] of TARGETS) {
     const text = await page.evaluate(() => document.body.innerText || '');
     const lines = text.split('\n').map((l) => l.trim()).filter(Boolean)
       .map((l) => (l.length > 160 ? l.slice(0, 157) + '…' : l));
+    scraped.push([label, lines]);
     if (!lines.length) {
       console.log('  (the page rendered nothing — check it by hand)');
     } else {
@@ -95,7 +102,31 @@ console.log(`  fees collected      ${published.totalFeesTokens} ${CFG.rewardToke
 console.log(`  distributed         ${published.totalDistributed} ${CFG.rewardTokenSymbol}` +
             `  ($${published.totalDistributedUsd})`);
 console.log(`  holders             ${published.holders}`);
-console.log(`  holderShare applied ${CFG.holderShare}   ← the assumption to check above`);
+console.log(`  holderShare applied ${CFG.holderShare}   ← the assumption to check`);
+
+/* The split, lifted out of the page dumps and printed HERE rather than left
+   in them. A fee line reading "0.7 creator / 0.3 platform" is the whole
+   answer this script is run for, and it was previously findable only by
+   scrolling a truncated dump in a log that arrives as a tail. */
+const SPLIT_RE = /(creator|platform|holder|reward|treasury|referr)/i;
+const NUMISH_RE = /(\d+(?:\.\d+)?\s*%|\b0?\.\d+\b|\b\d+\s*\/\s*\d+\b)/;
+const hits = [];
+for (const [label, lines] of scraped) {
+  lines.forEach((l, i) => {
+    if (!SPLIT_RE.test(l)) return;
+    if (!NUMISH_RE.test(l) && !(lines[i - 1] && NUMISH_RE.test(lines[i - 1]))) return;
+    const ctx = [lines[i - 1], l].filter(Boolean).join('  |  ');
+    if (!hits.some((h) => h.endsWith(ctx))) hits.push(`  ${label}: ${ctx}`);
+  });
+}
+console.log('\n--- what the panels say about the split -----------------');
+if (hits.length) {
+  hits.slice(0, 12).forEach((h) => console.log(h));
+  console.log('\n  ⚠ Read these against holderShare above. They are the platform\'s own');
+  console.log('    words; if they disagree with the constant, the constant is wrong.');
+} else {
+  console.log('  (nothing matched — read the dumps above by hand)');
+}
 console.log(`  synced              ${published.meta?.synced}  at ${published.updatedAt}`);
 console.log('\nIf the panel\'s split is not ' + CFG.holderShare +
             ', "distributed" is wrong by exactly that ratio.');

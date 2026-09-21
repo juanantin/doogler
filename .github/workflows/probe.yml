@@ -15,6 +15,7 @@ on:
       - scripts/probe.mjs
       - scripts/page-probe.mjs
       - scripts/panel-probe.mjs
+      - scripts/split-probe.mjs
       - .github/workflows/probe.yml
       # The page probe exists to test these two, so a change to either is
       # exactly when it should run.
@@ -82,6 +83,20 @@ jobs:
       - name: Read the platform's own panels
         if: always()
         run: node scripts/panel-probe.mjs
+
+      # HOLDER_SHARE is the one number the chain does not hand over, and the
+      # Stonks panel for this token publishes "0.7 creator / 0.3 platform",
+      # which is not the 0.9 carried across the sibling builds. This groups the
+      # rewards index's outflow by recipient, which tells the two readings
+      # apart: a single address taking ~30% means the split happens on the way
+      # OUT of the index (holderShare 0.7), a long tail with no dominant
+      # recipient means the cut is taken upstream and everything leaving the
+      # index reaches holders (holderShare 1.0).
+      - name: Who receives the index's outflow
+        if: always()
+        env:
+          RPC_URL: ${{ secrets.RPC_URL }}
+        run: node scripts/split-probe.mjs
 
       # LAST, and the reason is the paragraph above: this step's output is the
       # one nobody had ever read. It sat seventh of nine, under two thousand
