@@ -9,23 +9,64 @@ is **not Alphabet stock** and the page says so plainly under the stats strip —
 see *Being exact about the reward token* below, which is not a legal footnote
 but the thing that decides what the tiles are allowed to say.
 
-⚠ **This build is not live yet.** Four inputs are outstanding and every one of
-them is blocking:
+**The dashboard is live and every figure on it has been checked on a runner.**
+The contract address, X account, Stockify index and the hero photograph are in.
+What remains is artwork and the deployment:
 
-| Missing | What it blocks |
+| Still missing | What it blocks |
 |---|---|
-| **Contract address** (Base) | everything on the dashboard. `config.js` is all nulls until it lands |
-| **X account URL** | the two "Follow on X" links |
-| **Stockify index URL** | the rewards lockup, and the `holderShare` check |
-| **Artwork** — dog photos, wordmark, square mark | every image slot, the icons and the share card. See [`images/src/README.md`](images/src/README.md) |
+| **Three collage photos** | the lore section's photo cards, which render as dashed placeholders naming what belongs in them |
+| **An Earth-from-space image** | the dark banner's background. The band and its text contrast are built; a gradient stands in |
+| **A Vercel deployment URL** | the `SITE_URL` variable, the probe's live-site pass, and the social card meta — which stays commented out rather than shipping relative `og:image` paths that are guaranteed to render blank |
 
-**The `Discover token facts` workflow is red on purpose** while that first row
-is outstanding, and it is the only red one. Answering the token's facts is the
-single thing blocking this build, so it fails rather than reporting a green
-tick for a run that discovered nothing. Every other workflow guards itself and
-exits clean: the probe passes all nine steps, `Index rewards` refuses to scan
-and says why, `Fetch the token's artwork` skips. The red clears the moment an
-address lands.
+Nothing above stops the site working; each is a slot with a placeholder that
+says so. See [`images/src/README.md`](images/src/README.md).
+
+### What the network says this token is
+
+Read by [`discover.yml`](.github/workflows/discover.yml), never assumed:
+
+```
+token    DOOGLER   name() "Jeffree"        decimals() 18   supply 1,000,000,000
+reward   GOOGLc    name() "Alphabet Inc."  decimals()  8
+pool     0x09DB9BE4…c5B2   Uniswap v3, the deeper of TWO pairs
+launch   block 51531524    three sources agree
+```
+
+Three of those would each have put a wrong number on a tile:
+
+- **The decimals differ.** 18 on the token, **8** on the reward — the same
+  split that broke `box`. Sharing one constant publishes every payout at
+  10⁻¹⁰ of its scale: every digit right, the magnitude out by ten billion.
+- **The reward token is not "GOOGL".** Its contract answers `GOOGLc`. The
+  headline keeps $GOOGL as the brand line; everything factual says GOOGLc.
+- **There are two pools.** The v3 pair holds $32K; a v4 DOOGLER/ETH pair holds
+  **$8.51** and reports a market cap $22K higher. DexScreener's search picks
+  between them, so `contracts.pool` is named.
+
+### holderShare, measured rather than inherited
+
+`holderShare` is the one multiplier between a measured outflow and the figure
+on the tile, and the only value the chain does not hand over. 0.9 came from
+three sibling builds. [`split-probe.mjs`](scripts/split-probe.mjs) checked it
+against this token by grouping the rewards index's entire outflow by recipient:
+
+```
+1,107 transfers · 2.11662791 GOOGLc · 191 addresses
+0x2a201ada…4c71   0.21166278   9.999999%   ← 10% to within 1.1 raw units
+next largest      0.05680112   2.6836%
+```
+
+A balance-proportional payout never lands on exactly 10.000000%, and not
+repeatedly. That address is the protocol's cut. Holders received
+**0.90000001** of the outflow — eight decimals, where `blue`'s five was the
+bar. `PROTOCOL_ADDRESS` is now set to it, so the indexer **subtracts the cut
+exactly** instead of multiplying by a constant, which survives the platform
+changing the percentage.
+
+> The Stonks panel publishes `FEE 1% · 0.7 creator / 0.3 platform`, which looks
+> like it contradicts 0.9. It does not: that splits the trading fee *upstream*,
+> deciding what reaches the index at all. The 0.9 splits what *leaves* it.
 
 Copied from [`juanantin/purr`](https://github.com/juanantin/purr), which was
 copied from [`blue`](https://github.com/juanantin/blue), which was copied from

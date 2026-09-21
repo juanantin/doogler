@@ -2,22 +2,18 @@
 
 This is the checklist for pointing the site at a token.
 
-**For $DOOGLER nothing below is done yet.** The presentation (step 2's markup
-half) is built and the machinery is in place, but every fact the network can
-answer is `null` in `config.js` and `worker/src/config.js`, and every image is
-a placeholder. Read the steps in order; they are also the record of why each
-value must be read rather than guessed.
+**For $DOOGLER steps 0, 1 and 3 are done** — read them as the record of what
+was set and why. Step 2 is partly done (the hero photograph, the avatar and
+every icon are in; the collage photos and the banner image are not) and step 4
+is outstanding.
 
-Blocking on the owner, all four:
+Blocking on the owner:
 
-1. **Contract address** (Base) — step 1. Nothing on the dashboard resolves
-   without it, and it is also what `discover.yml` needs to answer everything
-   else in step 1.
-2. **X account URL** — step 1, `links.x`.
-3. **Stockify index URL** — step 1, `links.rewardsBy`, and the `holderShare`
-   check in step 3.
-4. **Artwork** — step 2. See [`images/src/README.md`](images/src/README.md) for
-   exactly which files and what is derived from each.
+1. **Three collage photos** and **an Earth-from-space image** — step 2. See
+   [`images/src/README.md`](images/src/README.md).
+2. **A Vercel deployment** — step 4. Until `SITE_URL` is set, nothing has
+   proved what a visitor is actually served, and the social card meta in
+   `index.html` stays commented out.
 
 After step 1 the page is already correct for the token; everything after that
 is branding and live figures.
