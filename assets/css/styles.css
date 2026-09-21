@@ -403,9 +403,10 @@ a { color: inherit; text-decoration: none; }
 
 .lockup {
   display: grid;
-  gap: 5px;
-  justify-items: start;
-  padding: 11px 16px;
+  gap: 7px;
+  justify-items: center;
+  text-align: center;
+  padding: 12px 18px;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--r-card);
@@ -426,39 +427,35 @@ a { color: inherit; text-decoration: none; }
 }
 .lockup__name { grid-area: name; font-size: 15px; font-weight: 700; }
 
-/* Each partner's own supplied logo. Sized by HEIGHT so the two sit on a
-   shared optical baseline despite very different source proportions — the
-   Stockify lockup is 3:1 and the Stonks button is 5:1, so matching their
-   widths instead would leave one of them half the other's size. */
+/* Each partner's own supplied logo, centred in its plate and sized by HEIGHT
+   so the two sit on a shared optical baseline despite very different source
+   proportions — the Stockify lockup is 3:1 and the Stonks button 5:1, so
+   matching their widths instead would leave one of them half the other's
+   size. */
 .lockup__logo {
-  height: 24px;
+  height: 34px;
   width: auto;
   max-width: 100%;
   object-fit: contain;
-  object-position: left center;
-  margin-top: 3px;
+  margin-inline: auto;      /* centred in the card, per the ask */
+  display: block;
 }
-/* The Stonks mark is drawn FOR A DARK GROUND: its background is transparent
-   and its dominant ink is #e8ecfc, which on this white card is all but
-   invisible — 1.1:1 against the surface. It gets the dark plate it was drawn
-   for rather than being recoloured, which would mean redrawing someone else's
-   logo. The plate is sized by the same optical height as the other lockup. */
-.lockup__logo--stonks {
-  height: 20px;
-  padding: 6px 10px;
-  background: #1b1f27;
-  box-sizing: content-box;
-  margin-top: 0;
-}
-.lockup__arrow {
-  grid-area: arrow;
-  font-size: 17px;
-  color: var(--muted);
-  transition: transform .16s ease, color .16s ease;
-}
-.lockup:hover .lockup__arrow { transform: translateX(3px); color: var(--g-blue); }
 
+/* ⚠ THE STONKS MARK IS LOW-CONTRAST ON WHITE, BY ITS OWN DESIGN, and it is
+   served on white anyway because the file is transparent and a black plate
+   under a transparent logo reads as a bug.
 
+   Measured off the file: its "STONKS." wordmark fills with #e8ecfc, which is
+   1.18:1 against this card — effectively no contrast at all. What makes it
+   legible is the thin darker outline around each pixel letter, not the fill.
+   ".EXCHANGE" is #597bef and reads properly at 3.82:1.
+
+   So it is readable but washed out, and that comes from the source file
+   rather than from anything here. A darker export of the wordmark would fix
+   it at the root; failing that, `background: #1b1f27; padding: 6px 10px;` on
+   this rule puts back the dark plate the mark was drawn for, where the same
+   fill measures 14:1. */
+.lockup__logo--stonks { height: 30px; }
 /* ==========================================================================
    STATS STRIP — one white card, six tiles
    ========================================================================== */
