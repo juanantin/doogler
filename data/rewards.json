@@ -17,18 +17,18 @@
     "Every figure a visitor sees today comes from DexScreener and the browser's",
     "own chain scan."
   ],
-  "totalDistributed": 1.9049651300000001,
-  "totalDistributedUsd": 672.833683916,
-  "totalFeesCollected": 747.5931650079999,
-  "totalFeesTokens": 2.11662844,
-  "holders": 136,
-  "marketCap": 79997,
-  "liquidity": 32235.75,
-  "volume24h": 7372.37,
-  "updatedAt": "2026-09-21T10:11:41.989Z",
+  "totalDistributed": 1.91485608,
+  "totalDistributedUsd": 683.1057579792,
+  "totalFeesCollected": 759.0065594767999,
+  "totalFeesTokens": 2.12761832,
+  "holders": 130,
+  "marketCap": 79015,
+  "liquidity": 32162.22,
+  "volume24h": 5838.87,
+  "updatedAt": "2026-09-21T16:26:19.020Z",
   "meta": {
     "synced": true,
     "blocksBehind": 0,
-    "kexPriceUsd": 353.2
+    "kexPriceUsd": 356.74
   }
 }
