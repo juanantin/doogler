@@ -57,10 +57,10 @@
 
      The ?v= below is what makes a browser let go of the icon it has cached;
      node scripts/stamp.mjs moves all of them together. -->
-<link rel="icon" href="favicon.ico?v=5" sizes="any">
-<link rel="icon" type="image/png" href="images/favicon.png?v=5">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=5">
-<link rel="manifest" href="site.webmanifest?v=5">
+<link rel="icon" href="favicon.ico?v=6" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon.png?v=6">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=6">
+<link rel="manifest" href="site.webmanifest?v=6">
 
 <!-- One face — Inter — across five weights. 800 is not decoration: the
      wordmark and the section headings are set in it, and Inter's 700 is
@@ -70,7 +70,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=5">
+<link rel="stylesheet" href="assets/css/styles.css?v=6">
 </head>
 
 <!-- No `anim` class here on purpose: the entrance animation hides everything
@@ -87,7 +87,7 @@
     <a class="brand" href="#top" aria-label="Jeffree $DOOGLER — home">
       <!-- Cropped from the hero to the dog's head — see images/src/README.md.
            The whole photo at 40px is a smudge; the head still reads. -->
-      <img class="brand__avatar" src="images/avatar.png?v=5" width="256" height="256"
+      <img class="brand__avatar" src="images/avatar.png?v=6" width="256" height="256"
            alt="" decoding="async">
       <span class="brand__name">
         <!-- The wordmark: DOOGLER in Google's four accent colours, cycling in
@@ -116,16 +116,32 @@
         <span>Chart</span>
       </a>
 
-      <!-- The top bar's own CA control. app.js binds #copy-ca (the hero chip);
-           this one is mirrored by the inline script at the foot of the page, so
-           app.js stays untouched. -->
-      <button class="topnav__link topnav__ca" id="copy-ca-top" type="button">
-        <svg class="topnav__icon topnav__icon--stroke" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M9.4 9.4h9.2v9.2H9.4z"/><path d="M14.6 9.4V5.4H5.4v9.2h4"/>
-        </svg>
-        <span>CA</span>
-        <span class="sr-only">— copy the contract address</span>
-      </button>
+      <!-- THE contract-address control, now that the hero chip is gone. It
+           carries the ids app.js binds — #copy-ca for the clipboard, #ca-short
+           for the truncated address, and the toast — so app.js is untouched
+           and there is exactly one clipboard path on the page.
+
+           The address itself is shown beside the label on wide screens and
+           hidden with the other top-bar labels below 960px, where the copy
+           button is the whole of what fits. -->
+      <div class="ca-wrap">
+        <button class="topnav__link topnav__ca" id="copy-ca" type="button">
+          <svg class="topnav__icon topnav__icon--stroke" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M9.4 9.4h9.2v9.2H9.4z"/><path d="M14.6 9.4V5.4H5.4v9.2h4"/>
+          </svg>
+          <span>CA</span>
+          <span class="ca-addr" id="ca-short">—</span>
+          <span class="sr-only">— copy the contract address</span>
+        </button>
+
+        <div class="toast" id="copy-toast" role="status" aria-live="polite">
+          <svg class="toast__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="m7.8 12.3 2.9 2.9 5.5-5.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="toast-text">Copied!</span>
+        </div>
+      </div>
 
       <a class="cta" href="#stats">
         <span class="cta__l1">Buy <b>$DOOGLER</b></span>
@@ -168,59 +184,6 @@
         into <b>GOOGLc</b> — the tokenized $GOOGL wrapper —<br>
         and airdropped to $DOOGLER holders.
       </p>
-
-      <nav class="hero__actions" aria-label="Token links" data-rise>
-        <a class="btn btn--solid" href="#" data-mirror-x target="_blank" rel="noopener noreferrer">
-          <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M17.53 3h3.1l-6.77 7.73L21.83 21h-6.24l-4.89-6.39L5.11 21H2l7.24-8.27L2.17 3h6.4l4.42 5.84L17.53 3Zm-1.09 16.13h1.72L7.63 4.78H5.79l10.65 14.35Z"/>
-          </svg>
-          <span><u>Follow</u> on X</span>
-        </a>
-
-        <a class="btn btn--outline" href="#" data-mirror-chart target="_blank" rel="noopener noreferrer">
-          <svg class="btn__icon btn__icon--bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <rect x="4" y="12" width="3.6" height="8" rx="1"/><rect x="10.2" y="6" width="3.6" height="14" rx="1"/><rect x="16.4" y="9" width="3.6" height="11" rx="1"/>
-          </svg>
-          View Chart
-        </a>
-
-        <div class="ca-wrap">
-          <button class="ca-chip" id="copy-ca" type="button">
-            <span class="ca-chip__stack">
-              <span class="ca-chip__label">CA (Base)</span>
-              <!-- app.js writes the truncated address here from config.js. -->
-              <span class="ca-chip__addr" id="ca-short">—</span>
-            </span>
-            <svg class="ca-chip__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M9.4 9.4h9.2v9.2H9.4z"/><path d="M14.6 9.4V5.4H5.4v9.2h4"/>
-            </svg>
-            <span class="sr-only">Copy the contract address</span>
-          </button>
-
-          <div class="toast" id="copy-toast" role="status" aria-live="polite">
-            <svg class="toast__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-              <path d="m7.8 12.3 2.9 2.9 5.5-5.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span id="toast-text">Copied!</span>
-          </div>
-        </div>
-      </nav>
-
-      <!-- The two partner lockups, each carrying the partner's own supplied
-           logo. Both hrefs are written from config.js by app.js. -->
-      <div class="lockups" data-rise>
-        <a class="lockup" id="link-launched" href="#" target="_blank" rel="noopener noreferrer">
-          <span class="lockup__kicker">Launched on</span>
-          <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=5"
-               width="550" height="112" alt="Stonks.Exchange" decoding="async">
-        </a>
-        <a class="lockup" id="link-rewards" href="#" target="_blank" rel="noopener noreferrer">
-          <span class="lockup__kicker">Holder rewards powered by</span>
-          <img class="lockup__logo" src="images/stockify_logo.png?v=5"
-               width="1250" height="408" alt="Stockify" decoding="async">
-        </a>
-      </div>
 
       <!-- ⚠ THE MOCKUP PUTS A HANDWRITTEN “Best work partner!” AND SUNDAR
            PICHAI'S SIGNATURE HERE, and a matching photo card in the collage
@@ -441,8 +404,8 @@
 
       <figure class="card card--photo card--cap">
         <picture>
-          <source srcset="images/photo_cap.webp?v=5" type="image/webp">
-          <img src="images/photo_cap.jpg?v=5" width="800" height="800" loading="lazy" decoding="async"
+          <source srcset="images/photo_cap.webp?v=6" type="image/webp">
+          <img src="images/photo_cap.jpg?v=6" width="800" height="800" loading="lazy" decoding="async"
                alt="Jeffree sitting on grass beside a multicoloured Doogler propeller cap.">
         </picture>
         <figcaption>Doogler in training <span aria-hidden="true">🐾</span></figcaption>
@@ -450,8 +413,8 @@
 
       <figure class="card card--photo card--jump">
         <picture>
-          <source srcset="images/photo_jump.webp?v=5" type="image/webp">
-          <img src="images/photo_jump.jpg?v=5" width="800" height="800" loading="lazy" decoding="async"
+          <source srcset="images/photo_jump.webp?v=6" type="image/webp">
+          <img src="images/photo_jump.jpg?v=6" width="800" height="800" loading="lazy" decoding="async"
                alt="Jeffree in a blue cape, mid-jump over an agility bar.">
         </picture>
         <figcaption>Full send, every time</figcaption>
@@ -498,7 +461,7 @@
 
     <div class="foot__left">
       <a class="brand brand--foot" href="#top">
-        <img class="brand__avatar" src="images/avatar.png?v=5" width="256" height="256" alt="" decoding="async">
+        <img class="brand__avatar" src="images/avatar.png?v=6" width="256" height="256" alt="" decoding="async">
         <span class="brand__name">
           <span class="wordmark" aria-label="Jeffree $DOOGLER">Jeffree&nbsp;<span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span>
           <span class="foot__tag">Buy $DOOGLER. Get $GOOGL.</span>
@@ -509,14 +472,14 @@
     <!-- The same two lockups. These carry their own ids because app.js writes
          both pairs' hrefs from config.js. -->
     <div class="foot__mid">
-      <a class="lockup lockup--foot" id="link-launched-foot" href="#" target="_blank" rel="noopener noreferrer">
+      <a class="lockup lockup--foot" id="link-launched" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Launched on</span>
-        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=5"
+        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=6"
              width="550" height="112" alt="Stonks.Exchange" decoding="async">
       </a>
-      <a class="lockup lockup--foot" id="link-rewards-foot" href="#" target="_blank" rel="noopener noreferrer">
+      <a class="lockup lockup--foot" id="link-rewards" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Holder rewards powered by</span>
-        <img class="lockup__logo" src="images/stockify_logo.png?v=5"
+        <img class="lockup__logo" src="images/stockify_logo.png?v=6"
              width="1250" height="408" alt="Stockify" decoding="async">
       </a>
     </div>
@@ -572,28 +535,11 @@
 
     /* --- Mirroring ------------------------------------------------------ */
 
-    /* app.js runs after this script, so the hrefs it writes are not on the
-       page yet. Mirror after it: one frame is enough, and a load listener
-       covers a slow config.js. */
-    function mirror() {
-      [['link-x', '[data-mirror-x]'], ['link-chart', '[data-mirror-chart]'],
-       ['link-launched', '#link-launched-foot'], ['link-rewards', '#link-rewards-foot']
-      ].forEach(function (pair) {
-        var src = document.getElementById(pair[0]);
-        if (!src || !src.getAttribute('href') || src.getAttribute('href') === '#') return;
-        Array.prototype.forEach.call(document.querySelectorAll(pair[1]), function (el) {
-          el.setAttribute('href', src.getAttribute('href'));
-        });
-      });
-    }
-    window.addEventListener('load', mirror);
-    setTimeout(mirror, 0);
-
-    /* The top bar's CA button just presses the hero's, so there is one
-       clipboard path on the page and one toast, and app.js owns both. */
-    var top = document.getElementById('copy-ca-top');
-    var main = document.getElementById('copy-ca');
-    if (top && main) top.addEventListener('click', function () { main.click(); });
+    /* Nothing to mirror. Every control app.js writes — #link-x, #link-chart,
+       #copy-ca, #link-launched, #link-rewards — now appears exactly ONCE on
+       the page, so app.js reaches all of them directly and this script no
+       longer copies hrefs between duplicates. The hero's second copy of the
+       actions and the lockups was removed for being exactly that duplication. */
 
     /* --- Entrance ------------------------------------------------------- */
 
@@ -609,7 +555,7 @@
       el.classList.add('is-in');
     });
 
-    var groups = ['.stat', '.card', '.scribble', '.lockup--foot', '.foot__left', '.foot__facts'];
+    var groups = ['.stat', '.card', '.scribble', '.lockup', '.foot__left', '.foot__facts'];
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
@@ -631,7 +577,7 @@
 <!-- ?v= is the cache buster: run `node scripts/stamp.mjs` on every deploy,
      which moves every ?v= here and `version` in config.js together. Skip it
      and a CDN keeps serving the previous config.js and app.js. -->
-<script src="config.js?v=5"></script>
-<script src="assets/js/app.js?v=5"></script>
+<script src="config.js?v=6"></script>
+<script src="assets/js/app.js?v=6"></script>
 </body>
 </html>
