@@ -243,6 +243,7 @@ a { color: inherit; text-decoration: none; }
 .cta:hover { background: #dfeafd; border-color: #c4d6f8; }
 .cta__l1, .cta__l2 { font-size: 12.5px; font-weight: 500; }
 .cta b { font-weight: 700; }
+.cta__short { font-size: 13.5px; font-weight: 700; }
 
 
 /* ==========================================================================
@@ -263,14 +264,14 @@ a { color: inherit; text-decoration: none; }
    background entirely on some builds, and the whole hero would go white. */
 .hero {
   position: relative;
-  background-image: url("../../images/hero.webp?v=12");
+  background-image: url("../../images/hero.webp?v=13");
   background-size: cover;
   background-position: center;
   isolation: isolate;
 }
 /* Anything without WebP still gets a photograph rather than a blank band. */
 @supports not (background-image: url("a.webp")) {
-  .hero { background-image: url("../../images/hero.jpg?v=12"); }
+  .hero { background-image: url("../../images/hero.jpg?v=13"); }
 }
 
 .hero::before {
@@ -803,38 +804,46 @@ a { color: inherit; text-decoration: none; }
 .bannerwrap { padding-bottom: clamp(30px, 5vw, 56px); }
 
 .banner {
-  /* ⚠ ARTWORK PENDING: the Earth-from-space image sits at the LEFT of this
-     plate in the mockup. Layer it UNDER the gradient below, which is what
-     keeps the type legible over whatever the photo turns out to be:
-
-       background-image:
-         linear-gradient(90deg, rgba(8,11,15,.35) 0%, rgba(8,11,15,.88) 34%, rgba(8,11,15,.96) 100%),
-         url("../../images/earth.jpg");
-       background-size: cover;
-       background-position: left center;
-
-     Until then the plate is the dark ground alone, with a blue cast at the
-     left standing in for the planet's limb. */
+  /* The Dooglerplex sign now sits at the left where the mockup put an image.
+     The blue cast stays: it lifts the sign off the flat dark ground and is
+     what stops the cut-out looking pasted on. */
   background:
-    radial-gradient(70% 150% at 8% 50%, rgba(66, 133, 244, .34) 0%, transparent 62%),
+    radial-gradient(64% 150% at 14% 55%, rgba(66, 133, 244, .34) 0%, transparent 66%),
     var(--dark);
   color: #fff;
   border-radius: 14px;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
   align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 24px clamp(24px, 6vw, 90px);
-  padding: clamp(26px, 3.6vw, 40px) clamp(24px, 4vw, 54px);
+  gap: clamp(18px, 3vw, 46px);
+  padding: clamp(22px, 3vw, 34px) clamp(24px, 4vw, 54px);
+  /* The sign overlaps the plate's top edge, so the plate must not clip it. */
+  overflow: visible;
+}
+
+/* The sign, standing slightly proud of the plate rather than boxed inside it.
+   margin-block negative on both sides so it can grow past the padding without
+   making the plate taller than the mockup's. */
+.banner__art {
+  display: block;
+  margin-block: clamp(-30px, -2.4vw, -14px);
+  align-self: center;
+}
+.banner__art img {
+  display: block;
+  width: clamp(150px, 19vw, 268px);
+  height: auto;
+  /* A cut-out with no shadow floats; this is the ground contact. */
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .45));
 }
 
 .banner__line {
   margin: 0;
-  margin-left: auto;
-  font-size: clamp(19px, 2.3vw, 27px);
+  font-size: clamp(18px, 2.1vw, 26px);
   font-weight: 600;
   letter-spacing: -.01em;
   line-height: 1.25;
+  text-align: center;
 }
 
 .banner__mark { text-align: right; }
@@ -974,24 +983,36 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 720px) {
-  /* Below this the photograph cannot carry type over it at all — the dog is
-     the whole frame at this width. It moves to a band under the copy, which
-     is the same picture doing the same job with the reading order intact. */
+  /* The photograph STAYS BEHIND THE COPY on a phone, as on desktop — it is not
+     moved to a band underneath.
+
+     What changes is the scrim, which has to. The horizontal gradient that
+     clears the dog on a wide screen is useless at 390px, where the frame is a
+     narrow vertical slice and the dog is most of it. So the scrim turns
+     VERTICAL here: near-solid behind the type at the top, clearing downward so
+     the picture is fully itself by the bottom of the band. The type sits on
+     white and the dog still reads underneath it.
+
+     A min-height gives the picture room below the copy; without it the band is
+     only as tall as the text and the photograph never gets to show. */
   .hero {
-    background-image: none;
-    padding-bottom: 0;
+    background-position: 64% top;
+    min-height: 74vh;
+    display: flex;
+    align-items: flex-start;
   }
-  .hero::before { display: none; }
-  .hero::after {
-    content: "";
-    display: block;
-    margin-top: 22px;
-    aspect-ratio: 1981 / 793;
-    background-image: url("../../images/hero.webp?v=12");
-    background-size: cover;
-    background-position: 62% center;
+  .hero::before {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, .96) 0%,
+      rgba(255, 255, 255, .93) 34%,
+      rgba(255, 255, 255, .70) 54%,
+      rgba(255, 255, 255, .26) 74%,
+      rgba(255, 255, 255, 0) 92%
+    );
   }
   .hero__title, .hero__sub { max-width: none; }
+  .hero__sub br { display: none; }
 }
 
 @media (max-width: 560px) {
@@ -1009,15 +1030,59 @@ a { color: inherit; text-decoration: none; }
   .card--ceo { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .card__media { max-width: 180px; }
 
-  .banner { flex-direction: column; align-items: flex-start; }
-  .banner__line, .banner__mark { margin-left: 0; text-align: left; }
+  /* Stacked on a phone: sign, line, wordmark, each centred. */
+  .banner {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 16px;
+    padding-top: 0;
+  }
+  .banner__line, .banner__mark { text-align: center; }
+  .banner__art { margin-block: clamp(-34px, -7vw, -20px) 0; }
 
   .foot__in { grid-template-columns: minmax(0, 1fr); }
 }
 
-@media (max-width: 420px) {
-  /* Below this the CTA block goes, not the links: a visitor at phone width can
-     still reach X, the chart and the CA. */
-  .cta { display: none; }
-  .brand .wordmark { font-size: 16px; }
+/* THE BUY BUTTON STAYS AT EVERY WIDTH — it is the thing a visitor came for.
+   What gives way is its wording.
+
+   Its two full lines are the widest item in the bar, and between about 420px
+   and 560px they pushed the whole nav past the viewport: the labels beside the
+   icons are already hidden by then, so the bar looked like it had room when it
+   did not. It had been hidden below 420px only, which left that band
+   overflowing — a horizontal scrollbar on exactly the phone sizes most people
+   use. Below 620px it becomes a compact "Buy" instead of disappearing. */
+@media (max-width: 620px) {
+  .cta { padding: 9px 14px; }
+  .cta__l1, .cta__l2 { display: none; }
+  .cta__short { display: block; }
+  .cta__short[hidden] { display: block; }
+}
+
+@media (max-width: 520px) {
+  /* The brand lockup was the last thing still too wide: at 390px it and the
+     nav came to 424px between them, so the bar overflowed even with the Buy
+     button already compacted. "Jeffree" is the part that can go — the
+     wordmark alone still identifies the page, and the aria-label on the parent
+     keeps the full name for a screen reader. The footer lockup keeps both
+     words; it has the room.
+
+     The avatar comes down with it, and the topbar's own gap tightens. */
+  .topbar .brand__given { display: none; }
+  .topbar .brand__avatar { width: 34px; height: 34px; }
+  .topbar .wordmark { font-size: 17px; }
+  .topbar__in { gap: 8px; min-height: 60px; }
+  .topnav { gap: 2px; }
+  .topnav__link { padding: 8px 7px; }
+}
+
+/* The narrowest phones still in use. Everything above has already given way,
+   so what is left is the page gutter and a little more off the lockup. */
+@media (max-width: 370px) {
+  :root { --gut: 11px; }
+  .topbar .brand__avatar { width: 30px; height: 30px; }
+  .topbar .wordmark { font-size: 15px; }
+  .topnav__icon { width: 17px; height: 17px; }
+  .cta { padding: 8px 11px; }
+  .cta__short { font-size: 12.5px; }
 }

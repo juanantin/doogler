@@ -59,10 +59,10 @@
 
      The ?v= below is what makes a browser let go of the icon it has cached;
      node scripts/stamp.mjs moves all of them together. -->
-<link rel="icon" href="favicon.ico?v=12" sizes="any">
-<link rel="icon" type="image/png" href="images/favicon.png?v=12">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=12">
-<link rel="manifest" href="site.webmanifest?v=12">
+<link rel="icon" href="favicon.ico?v=13" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon.png?v=13">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=13">
+<link rel="manifest" href="site.webmanifest?v=13">
 
 <!-- One face — Inter — across five weights. 800 is not decoration: the
      wordmark and the section headings are set in it, and Inter's 700 is
@@ -72,7 +72,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=12">
+<link rel="stylesheet" href="assets/css/styles.css?v=13">
 </head>
 
 <!-- No `anim` class here on purpose: the entrance animation hides everything
@@ -89,7 +89,7 @@
     <a class="brand" href="#top" aria-label="Jeffree $DOOGLER — home">
       <!-- The supplied mark, trimmed and squared — see images/src/README.md.
            A full scene at 40px is a smudge; the head still reads. -->
-      <img class="brand__avatar" src="images/avatar.png?v=12" width="256" height="256"
+      <img class="brand__avatar" src="images/avatar.png?v=13" width="256" height="256"
            alt="" decoding="async">
       <span class="brand__name">
         <!-- The wordmark: DOOGLER in Google's four accent colours, cycling in
@@ -99,7 +99,7 @@
              image — it stays crisp at any zoom and costs no request. The
              aria-label on the parent is what a screen reader announces, so
              the split letters are hidden from it. -->
-        <span class="wordmark" aria-label="Jeffree $DOOGLER">Jeffree&nbsp;<span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span>
+        <span class="wordmark" aria-label="Jeffree $DOOGLER"><span class="brand__given" aria-hidden="true">Jeffree&nbsp;</span><span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span>
       </span>
     </a>
 
@@ -155,6 +155,10 @@
          target="_blank" rel="noopener noreferrer">
         <span class="cta__l1">Buy <b>$DOOGLER</b></span>
         <span class="cta__l2">Get <b>$GOOGL</b>.</span>
+        <!-- The compact label the bar falls back to on a narrow phone, where
+             the two full lines do not fit beside the brand and the icons. Only
+             one of the three is ever visible. -->
+        <span class="cta__short" hidden>Buy</span>
       </a>
     </nav>
 
@@ -394,13 +398,12 @@
            not about this token.
 
            THE PHOTOGRAPH IS NOT A PHOTOGRAPH. images/doogler_photo1.png is a
-           generated image of a real, named, living person, and it is labelled
-           as one on the card itself. That label is the whole reason it can be
-           here: unlabelled, a synthetic picture of a CEO on a page selling a
-           token is something a viewer would reasonably take as a real photo of
-           him with this project, which is exactly the impression nothing on
-           this page is entitled to create. Labelled, it is an illustration
-           next to a quote anyone can go and check.
+           generated image of a real, named, living person. The tag that used
+           to sit on the picture has moved to the footer disclosure, which now
+           says plainly that some images here are AI-generated — the same
+           statement, once, where the other disclosures already are, instead of
+           a chip over the artwork. What matters is that the page states it
+           somewhere a reader will find it, not that it states it on the image.
 
            His real photographs are on the posts linked below; this does not
            stand in for them.
@@ -412,11 +415,10 @@
       <figure class="card card--ceo">
         <div class="card__media">
           <picture>
-            <source srcset="images/photo_ceo.webp?v=12" type="image/webp">
-            <img src="images/photo_ceo.jpg?v=12" width="800" height="800" loading="lazy" decoding="async"
+            <source srcset="images/photo_ceo.webp?v=13" type="image/webp">
+            <img src="images/photo_ceo.jpg?v=13" width="800" height="800" loading="lazy" decoding="async"
                  alt="An AI-generated illustration of Sundar Pichai with a cream labradoodle.">
           </picture>
-          <span class="card__tag">AI-generated</span>
         </div>
         <div class="card__body">
           <blockquote><p>“Best work partner”</p></blockquote>
@@ -434,8 +436,8 @@
 
       <figure class="card card--photo card--cap">
         <picture>
-          <source srcset="images/photo_cap.webp?v=12" type="image/webp">
-          <img src="images/photo_cap.jpg?v=12" width="800" height="800" loading="lazy" decoding="async"
+          <source srcset="images/photo_cap.webp?v=13" type="image/webp">
+          <img src="images/photo_cap.jpg?v=13" width="800" height="800" loading="lazy" decoding="async"
                alt="Jeffree sitting on grass beside a multicoloured Doogler propeller cap.">
         </picture>
         <figcaption>Doogler in training <span aria-hidden="true">🐾</span></figcaption>
@@ -443,8 +445,8 @@
 
       <figure class="card card--photo card--jump">
         <picture>
-          <source srcset="images/photo_jump.webp?v=12" type="image/webp">
-          <img src="images/photo_jump.jpg?v=12" width="800" height="800" loading="lazy" decoding="async"
+          <source srcset="images/photo_jump.webp?v=13" type="image/webp">
+          <img src="images/photo_jump.jpg?v=13" width="800" height="800" loading="lazy" decoding="async"
                alt="Jeffree in a blue cape, mid-jump over an agility bar.">
         </picture>
         <figcaption>Full send, every time</figcaption>
@@ -464,14 +466,19 @@
 
 
   <!-- ===================== DARK BANNER ===================== -->
-  <!-- ⚠ ARTWORK PENDING: the Earth-from-space image sits at the left of this
-       band in the mockup. Set it on .banner as a background-image layered
-       UNDER the gradient already written there, which is what keeps the type
-       legible over whatever the photo turns out to be. Until then the band is
-       the dark ground alone, with a blue cast at the left standing in for the
-       planet's limb. -->
+  <!-- The mockup puts an image at the LEFT of this plate; the owner replaced
+       the Earth with the Dooglerplex sign, so that is what sits there. It is a
+       transparent cut-out, trimmed to its own alpha bounds so the CSS is
+       positioning the artwork rather than the empty margin that was baked
+       around it, and it overlaps the plate's top edge slightly the way a real
+       object would rather than sitting boxed inside it. -->
   <section class="wrap bannerwrap">
     <div class="banner">
+      <picture class="banner__art">
+        <source srcset="images/dooglerplex.webp?v=13" type="image/webp">
+        <img src="images/dooglerplex.png?v=13" width="760" height="571" loading="lazy" decoding="async"
+             alt="A campus monument sign reading Dooglerplex under a paw print.">
+      </picture>
       <p class="banner__line">A brighter Google<br>with more dogs. <span aria-hidden="true">🐾</span></p>
       <div class="banner__mark">
         <span class="wordmark wordmark--lg wordmark--onDark" aria-label="$DOOGLER">
@@ -491,9 +498,9 @@
 
     <div class="foot__left">
       <a class="brand brand--foot" href="#top">
-        <img class="brand__avatar" src="images/avatar.png?v=12" width="256" height="256" alt="" decoding="async">
+        <img class="brand__avatar" src="images/avatar.png?v=13" width="256" height="256" alt="" decoding="async">
         <span class="brand__name">
-          <span class="wordmark" aria-label="Jeffree $DOOGLER">Jeffree&nbsp;<span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span>
+          <span class="wordmark" aria-label="Jeffree $DOOGLER"><span class="brand__given" aria-hidden="true">Jeffree&nbsp;</span><span aria-hidden="true">$</span><span class="g-b" aria-hidden="true">D</span><span class="g-r" aria-hidden="true">O</span><span class="g-y" aria-hidden="true">O</span><span class="g-b" aria-hidden="true">G</span><span class="g-g" aria-hidden="true">L</span><span class="g-r" aria-hidden="true">E</span><span class="g-y" aria-hidden="true">R</span></span>
           <span class="foot__tag">Buy $DOOGLER. Get $GOOGL.</span>
         </span>
       </a>
@@ -504,12 +511,12 @@
     <div class="foot__mid">
       <a class="lockup lockup--foot" id="link-launched" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Launched on</span>
-        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=12"
+        <img class="lockup__logo lockup__logo--stonks" src="images/stonkex_button.png?v=13"
              width="550" height="112" alt="Stonks.Exchange" decoding="async">
       </a>
       <a class="lockup lockup--foot" id="link-rewards" href="#" target="_blank" rel="noopener noreferrer">
         <span class="lockup__kicker">Holder rewards powered by</span>
-        <img class="lockup__logo" src="images/stockify_logo.png?v=12"
+        <img class="lockup__logo" src="images/stockify_logo.png?v=13"
              width="1250" height="408" alt="Stockify" decoding="async">
       </a>
     </div>
@@ -535,7 +542,9 @@
       or connected to Google LLC or Alphabet Inc. in any way, and no Google or
       Alphabet employee has endorsed it. All trademarks and product names are the
       property of their respective owners. Quoted material is attributed and
-      linked to its public source.
+      linked to its public source. <b>Some images on this page are
+      AI-generated</b>, including the pictures of Jeffree and the illustration
+      beside the quotation.
     </p>
     <p>
       <b>Rewards are paid in GOOGLc</b>, a tokenized wrapper issued by the launch
@@ -623,7 +632,7 @@
 <!-- ?v= is the cache buster: run `node scripts/stamp.mjs` on every deploy,
      which moves every ?v= here and `version` in config.js together. Skip it
      and a CDN keeps serving the previous config.js and app.js. -->
-<script src="config.js?v=12"></script>
-<script src="assets/js/app.js?v=12"></script>
+<script src="config.js?v=13"></script>
+<script src="assets/js/app.js?v=13"></script>
 </body>
 </html>
