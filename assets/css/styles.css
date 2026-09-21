@@ -577,31 +577,6 @@ a { color: inherit; text-decoration: none; }
 .legend.is-live .legend__dot { opacity: 1; }
 .legend.is-stale .legend__dot { background: var(--g-yellow-pure); }
 
-/* The "what holders receive" disclosure. Quiet, but not hidden: it is the
-   precise version of the headline's promise and it sits directly under the
-   figure it qualifies. */
-.disclose {
-  margin: 22px 0 0;
-  padding: 15px 18px;
-  max-width: 82ch;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--ink-2);
-  background: var(--band);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--g-blue);
-  border-radius: var(--r-card);
-}
-.disclose b { color: var(--ink); font-weight: 700; }
-.disclose code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: .92em;
-  padding: 1px 5px;
-  background: #fff;
-  border: 1px solid var(--line);
-}
-
-
 /* ==========================================================================
    LORE — two columns
    ========================================================================== */
@@ -694,10 +669,12 @@ a { color: inherit; text-decoration: none; }
    document with a section number, which is what the mockup draws and which
    would be a forged artifact around a genuine sentence. */
 .card--quote {
-  grid-column: 1 / -1;
   transform: rotate(-1.4deg);
   padding: 16px 18px;
 }
+/* The Code of Conduct quote is the long one and carries the section, so it
+   keeps the full width; the Pichai card sits in the row below it. */
+.card--quote:not(.card--pichai) { grid-column: 1 / -1; }
 .card--quote blockquote { margin: 0 0 10px; }
 .card--quote p {
   margin: 0;
@@ -721,6 +698,30 @@ a { color: inherit; text-decoration: none; }
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+/* The Pichai card. Its quote is the short one, so it is set larger — the card
+   is a pull-quote rather than a paragraph — and its sources sit under the
+   attribution as small chips, because being able to check the quote in one
+   click is the entire reason the card is allowed to exist. */
+.card--pichai { transform: rotate(1.6deg); }
+.card--pichai blockquote p { font-size: 19px; font-weight: 600; font-style: italic; }
+.card__srcs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.card__srcs a {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--g-blue);
+  text-decoration: none;
+  transition: border-color .16s ease, background-color .16s ease;
+}
+.card__srcs a:hover { border-color: var(--g-blue); background: #f2f7ff; }
 
 .card--photo { padding: 9px 9px 0; }
 .card--photo img { width: 100%; height: auto; display: block; border-radius: 4px; }
