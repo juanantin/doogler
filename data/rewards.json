@@ -18,17 +18,17 @@
     "own chain scan."
   ],
   "totalDistributed": 1.9174706600000002,
-  "totalDistributedUsd": 676.4261247282001,
-  "totalFeesCollected": 762.2894466923999,
+  "totalDistributedUsd": 673.4732199118001,
+  "totalFeesCollected": 758.9617097876001,
   "totalFeesTokens": 2.16086812,
   "holders": 125,
-  "marketCap": 48422,
-  "liquidity": 24185.79,
-  "volume24h": 3798,
-  "updatedAt": "2026-09-23T06:37:17.111Z",
+  "marketCap": 48897,
+  "liquidity": 24332.45,
+  "volume24h": 2244.41,
+  "updatedAt": "2026-09-23T12:10:57.992Z",
   "meta": {
     "synced": true,
     "blocksBehind": 0,
-    "kexPriceUsd": 352.77
+    "kexPriceUsd": 351.23
   }
 }
